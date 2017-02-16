@@ -4,7 +4,6 @@ public class Ville {
 	
 //=====================Constructeurs========================
 
-    // commented
 	public Ville(String nom, String wilaya, double superficie, double habitants) {
 		this.nom = nom;
 		this.wilaya = wilaya;
