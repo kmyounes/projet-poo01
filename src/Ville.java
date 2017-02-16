@@ -72,16 +72,26 @@ public class Ville {
 	//==============méthodes==============
 	
 	public void couleurAffiche(){
-		switch (this.nombreFleurs){
-		case  0 :
+		if(this.type=="ordinaire" &&( this.nombreFleurs<=1)){
+		
 			System.out.println("\u001B[31m"+ this.toString()+ "\u001B[0m");
-			break ;
-		case 1:
-			System.out.println("\u001B[31m"+ this.toString()+ "\u001B[0m");
-			break;
-		case 2:
 			
+		}
+		else if ((this.type=="ordinaire" && this.nombreFleurs>0) || (this.type!="ordinaire" && this.nombreFleurs==0 ) ){
+		//afficher en orange	
+		}
+		else {
+			//afficher en vert
 		}
 	}
 	
+	
+	public boolean existeChemin(){
+		return (this.voisins.length==0);
+	}
+	public boolean existeChemin3(){
+		return(this.voisins.length==3);
+	
+	}
+
 }
