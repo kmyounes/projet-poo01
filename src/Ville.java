@@ -15,6 +15,7 @@ public class Ville {
 	private int nombreFleurs;
 	private Ville[] voisins;
 	private types type;
+	private String couleur;
 
   //=====================Constructeurs========================
 
@@ -98,13 +99,15 @@ public class Ville {
 		if(this.type==types.valueOf("ordinaire") &&( this.nombreFleurs<=1)){
 		
 			System.out.println("\u001B[31m"+ this.toString()+ "\u001B[0m");
-			
+			this.couleur="rouge";
 		}
 		else if ((this.type==types.valueOf("ordinaire") && this.nombreFleurs>0) || (this.type!=types.valueOf("ordinaire") && this.nombreFleurs==0 ) ){
      		//afficher en orange	
+			this.couleur="orange";
 		}
 		else {
 			//afficher en vert
+			this.couleur="vert";
 		}
 	}
 	
@@ -133,5 +136,16 @@ for (Ville v : this.voisins){
 		return true;
 	}
 	
-
+public boolean methodeBizzare(){
+	if (this.type!=types.valueOf("ordinaire") && this.couleur=="vert"){
+		for(Ville v : this.voisins){
+			if(v.couleur!="rouge"){
+				return false;
+			}
+		
+		}
+		return true;
+	}
+		else {return false;}
+}
 }
