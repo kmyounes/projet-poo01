@@ -13,9 +13,11 @@ public class Ville {
 	private String nom,wilaya;
 	private double superficie,habitants;
 	private int nombreFleurs;
-	private Ville[] voisins;
+	private Ville[] voisinsEntrants;
+	private Ville[] voisinsSortants;
 	private types type;
 	private String couleur;
+	private static int numero;
 
   //=====================Constructeurs========================
 
@@ -24,6 +26,7 @@ public class Ville {
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
+		numero ++;
 	}	
   
 	//=====================Geters/Seters========================
@@ -78,20 +81,18 @@ public class Ville {
 	}
 	
 	public Ville[] getVoisins() {
-		return voisins;
+		return voisinsEntrants;
 	}
 	
 	public void setVoisins(Ville[] voisins) {
-		this.voisins = voisins;
+		this.voisinsEntrants = voisins;
 	}
 
-  
-	
-	@Override
-	public String toString() {
-		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", habitants=" + habitants
-				+ ", type=" + type + ", nombreFleurs=" + nombreFleurs + ", voisins=" + Arrays.toString(voisins) + "]";
+	public int getNumero(){
+		return numero;
 	}
+	
+	
 	
 	//=====================Méthodes========================
 	
@@ -101,7 +102,7 @@ public class Ville {
 			System.out.println("\u001B[31m"+ this.toString()+ "\u001B[0m");
 			this.couleur="rouge";
 		}
-		else if ((this.type==types.valueOf("ordinaire") && this.nombreFleurs>0) || (this.type!=types.valueOf("ordinaire") && this.nombreFleurs==0 ) ){
+		else if ((this.type==types.valueOf("ordinaire") && this.nombreFleurs>1) || (this.type!=types.valueOf("ordinaire") && this.nombreFleurs<=1 ) ){
      		//afficher en orange	
 			this.couleur="orange";
 		}
@@ -113,23 +114,28 @@ public class Ville {
 	
 	
 	public boolean existeChemin(){
-		return (this.voisins.length==0);
+		return (this.voisinsEntrants.length==0);
 	}
 	public boolean existeChemin3(){
-		return(this.voisins.length==3);
+		return(this.voisinsEntrants.length==3);
 	
 	}
 	
-	public boolean voisinDifferent(){
-for (Ville v : this.voisins){
+	public boolean voisinDifferents(){
+for (Ville v : this.voisinsEntrants){
 			if (this.type==v.type) { return false;}
 			
 		}
+for (Ville v : this.voisinsSortants){
+	if (this.type==v.type) { return false;}
+	
+}
+
 		return true;
 	}
 	
 	public boolean plusFleurie(){
-		for (Ville v : this.voisins){
+		for (Ville v : this.voisinsEntrants){
 			if (this.nombreFleurs<v.nombreFleurs) { return false;}
 			
 		}
@@ -138,14 +144,23 @@ for (Ville v : this.voisins){
 	
 public boolean methodeBizzare(){
 	if (this.type!=types.valueOf("ordinaire") && this.couleur=="vert"){
-		for(Ville v : this.voisins){
+		for(Ville v : this.voisinsEntrants){
 			if(v.couleur!="rouge"){
 				return false;
 			}
+			
 		
+		}
+		for(Ville v : this.voisinsSortants){
+			if(v.couleur!="rouge"){
+				return false;
+			}
 		}
 		return true;
 	}
 		else {return false;}
 }
+
+
 }
+
