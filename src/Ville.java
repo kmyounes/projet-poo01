@@ -4,30 +4,32 @@ import java.util.Arrays;
 
 public class Ville {
   //=====================Types=============================
-  private enum types{agricole,touristique,industrielle,ordinaire};
+  private enum types{
+	  agricole, touristique, industrielle, ordinaire
+	  };
  
   
 	
 	//=====================Variables========================
 	
 	private String nom,wilaya;
-	private double superficie,habitants;
-	private int nombreFleurs;
+	private double superficie;
+	private int nombreFleurs, habitants;
 	private Ville[] voisinsEntrants;
 	private Ville[] voisinsSortants;
-	private types type;
+	private types typeV;
 	private String couleur;
 	private static int numero;
 
   //=====================Constructeurs========================
 
-	public Ville(String nom, String wilaya, double superficie, double habitants) {
+	public Ville(String nom, String wilaya, double superficie, int habitants) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
 		numero ++;
-	}	
+	}
   
 	//=====================Geters/Seters========================
 	
@@ -55,20 +57,20 @@ public class Ville {
 		this.superficie = superficie;
 	}
 	
-	public double getHabitants() {
+	public int getHabitants() {
 		return habitants;
 	}
 	
-	public void setHabitants(double habitants) {
+	public void setHabitants(int habitants) {
 		this.habitants = habitants;
 	}
 	
 	public String getType() {
-		return type.name();
+		return typeV.name();
 	}
 	
 	public void setType(String type) {
-		this.type = types.valueOf(type);
+		this.typeV = types.valueOf(type);
 		
 	}
 	
@@ -96,71 +98,123 @@ public class Ville {
 	
 	//=====================Méthodes========================
 	
+	
+	
+	
+	// *Reworked by Legend 
 	public void couleurAffiche(){
-		if(this.type==types.valueOf("ordinaire") &&( this.nombreFleurs<=1)){
-		
-			System.out.println("\u001B[31m"+ this.toString()+ "\u001B[0m");
-			this.couleur="rouge";
+		System.out.printf("Ville de couleur: ");
+		if(this.typeV==types.valueOf("ordinaire") &&( this.nombreFleurs<=1)){
+			this.couleur="Rouge";
 		}
-		else if ((this.type==types.valueOf("ordinaire") && this.nombreFleurs>1) || (this.type!=types.valueOf("ordinaire") && this.nombreFleurs<=1 ) ){
+		else if ((this.typeV==types.valueOf("ordinaire") && this.nombreFleurs>1) || (this.typeV!=types.valueOf("ordinaire") && this.nombreFleurs<=1 ) ){
      		//afficher en orange	
-			this.couleur="orange";
+			this.couleur="Orange";
 		}
 		else {
 			//afficher en vert
-			this.couleur="vert";
+			this.couleur="Vert";
 		}
+		System.out.print(this.couleur);
 	}
 	
-	
-	public boolean existeChemin(){
+	public boolean pasChemin(){
 		return (this.voisinsEntrants.length==0);
 	}
-	public boolean existeChemin3(){
+	
+	public boolean existe3Chemin(){
 		return(this.voisinsEntrants.length==3);
 	
 	}
 	
+	// *Reworked by Legend: Added villes between them
 	public boolean voisinDifferents(){
-for (Ville v : this.voisinsEntrants){
-			if (this.type==v.type) { return false;}
-			
-		}
-for (Ville v : this.voisinsSortants){
-	if (this.type==v.type) { return false;}
-	
-}
-
+        //Partie1: verifie si les voisins sont diff de la ville elle meme
+		for (Ville v : this.voisinsEntrants){
+			if (this.typeV == v.typeV) { 
+				return false;
+				}
+			}
+        for (Ville v : this.voisinsSortants){
+        	if (this.typeV==v.typeV){
+        		return false;
+        		}
+        	}
+        //Partie2: verifie si les voisins sont tts de type diff
+        for(int i=0; i<this.voisinsEntrants.length; i++){
+        	for(int j = i+1; j<this.voisinsEntrants.length; j++){
+        		if (this.voisinsEntrants[i] == this.voisinsEntrants[j]) { 
+    				return false;
+    				}
+    			}
+        	}
+        for(int i=0; i<this.voisinsSortants.length; i++){
+        	for(int j = i+1; j<this.voisinsSortants.length; j++){
+        		if (this.voisinsSortants[i] == this.voisinsSortants[j]) { 
+    				return false;
+    				}
+    			}
+        	}
 		return true;
 	}
 	
+	
+	// *Reworked by Legend: Added villes sortant
 	public boolean plusFleurie(){
 		for (Ville v : this.voisinsEntrants){
-			if (this.nombreFleurs<v.nombreFleurs) { return false;}
+			if (this.nombreFleurs<v.nombreFleurs){
+				return false;
+				}
+			
+		}
+		for (Ville v : this.voisinsSortants){
+			if (this.nombreFleurs<v.nombreFleurs){
+				return false;
+				}
 			
 		}
 		return true;
 	}
 	
-public boolean methodeBizzare(){
-	if (this.type!=types.valueOf("ordinaire") && this.couleur=="vert"){
-		for(Ville v : this.voisinsEntrants){
-			if(v.couleur!="rouge"){
-				return false;
+	// *Reworked by Legend: Use method equals with strings!
+	public boolean methodeBizzare(){
+		if (this.typeV !=types.valueOf("ordinaire") && this.couleur.equalsIgnoreCase("Vert")){
+			for(Ville v : this.voisinsEntrants){
+				if(v.couleur.equalsIgnoreCase("Rouge") == false){
+					return false;
+					}
+				}
+			for(Ville v : this.voisinsSortants){
+				if(v.couleur.equalsIgnoreCase("Rouge") == false){
+					return false;
+					}
+				}
+			return true;
 			}
-			
-		
-		}
-		for(Ville v : this.voisinsSortants){
-			if(v.couleur!="rouge"){
-				return false;
+		else {
+			return false;
 			}
 		}
-		return true;
+	
+	// *Made by Legend: Verifie si v appartient au liste des voisins Entrant
+	public boolean voisinEnt(Ville v){
+		for(Ville tampon : this.voisinsEntrants){
+			if(tampon.equals(v)){
+				return true;
+			}
+		}
+		return false;
 	}
-		else {return false;}
+
+	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
+	public boolean voisinSort(Ville v){
+		for(Ville tampon : this.voisinsSortants){
+			if(tampon.equals(v)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 }
-
-
-}
-
