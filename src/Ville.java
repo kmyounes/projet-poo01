@@ -1,4 +1,3 @@
-//char inChar = in.next().toLowerCase().charAt(0); 
 
 import java.util.Arrays;
 
