@@ -216,5 +216,20 @@ public class Ville {
 		return false;
 	}
 	
+	public boolean cheminExiste(Ville fin, Ville... chemin){
+		Ville tampon = this;
+		
+		for(int i = 0; i < chemin.length; i++){
+			if(tampon.voisinSort(chemin[i])){
+				tampon = chemin[i];
+			} else {
+				return false;
+			}
+		}
+		if(tampon.voisinSort(fin)){
+			return true;
+		}
+		return false;
+	}
 	
 }
