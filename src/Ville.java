@@ -231,4 +231,28 @@ public class Ville {
 		return false;
 	}
 	
+	public boolean existeChemin(Ville debut,Ville fin){
+		Arrays.sort(voisinsSortants);
+		boolean v=false;
+		if(this.voisinsSortants.length==0 ){
+			return false;
+		}
+		if (Arrays.binarySearch(voisinsSortants, fin)>=0){
+			return true;
+			}else
+				{
+					for(Ville V: debut.voisinsSortants){
+				
+			
+					v=existeChemin(V,fin);
+					if(v){
+							return v;
+			
+						  }
+		             }
+		
+	             }
+		return false;
+	}
+	
 }
