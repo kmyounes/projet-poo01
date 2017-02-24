@@ -150,18 +150,6 @@ public class Application {
 		
 	}
 	
-	/*
-	VilleA => VilleB => VilleZ
-	       => VilleM
-	       => VilleC => VilleS  
-                     => VilleH
-    VilleD => VilleK
-    
-    VilleA => VilleB
-    
-	*/
-	//This needs to be tested!!
-	
 	public static void afficheReseauArray(ArrayList<Ville> liste){
 			
 		for(Ville v: liste){
@@ -188,14 +176,11 @@ public class Application {
 				if(temp != null){
 					if(space){
 						
-						
 						//make a string of ' ' numSpaces time.
-						//char[] chars = new char[v.getNom().length() + numSpace];
 						char[] chars = new char[ numSpace + i*4 ];
 						Arrays.fill(chars, ' ');
 						String result = new String(chars);
 						System.out.print(result);
-						
 						
 					} else {
 						space = !space;
@@ -211,7 +196,6 @@ public class Application {
 			}
 		}
 		System.out.println();
-				
 	}
 
 }
