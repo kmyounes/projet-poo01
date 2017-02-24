@@ -13,12 +13,12 @@ public class Ville {
 	
 	private String nom,wilaya;
 	private double superficie;
-	private int nombreFleurs, habitants;
+	private int nombreFleurs, habitants, numEnt = 0, numSort = 0;  //numSort: last index in the Sortant table
 	private Ville[] voisinsEntrants;
 	private Ville[] voisinsSortants;
 	private types typeV;
 	private String couleur;
-	private static int numero;
+	private static int numero = 0;
 
   //=====================Constructeurs========================
 
@@ -27,6 +27,8 @@ public class Ville {
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
+		this.voisinsEntrants = new Ville[10];
+		this.voisinsSortants = new Ville[10];
 		numero ++;
 	}
   
@@ -81,12 +83,20 @@ public class Ville {
 		this.nombreFleurs = nombreFleurs;
 	}
 	
-	public Ville[] getVoisins() {
+	public Ville[] getVoisinsEntrants() {
 		return voisinsEntrants;
 	}
-	
-	public void setVoisins(Ville[] voisins) {
-		this.voisinsEntrants = voisins;
+
+	public void setVoisinsEntrants(Ville[] voisinsEntrants) {
+		this.voisinsEntrants = voisinsEntrants;
+	}
+
+	public Ville[] getVoisinsSortants() {
+		return voisinsSortants;
+	}
+
+	public void setVoisinsSortants(Ville[] voisinsSortants) {
+		this.voisinsSortants = voisinsSortants;
 	}
 
 	public int getNumero(){
@@ -96,10 +106,7 @@ public class Ville {
 	
 	
 	//=====================Méthodes========================
-	
-	
-	
-	
+
 	// *Reworked by Legend 
 	public void couleurAffiche(){
 		System.out.printf("Ville de couleur: ");
@@ -117,18 +124,35 @@ public class Ville {
 		System.out.print(this.couleur);
 	}
 	
+	/*
+	 * I edited this method since we should look for the number of cities that we go to! 
+	 * 
+	 */
 	public boolean pasChemin(){
-		return (this.voisinsEntrants.length==0);
+		for(Ville v : this.voisinsSortants){
+			if(v != null)
+				return false;
+		}
+		return true;
 	}
 	
 	public boolean existe3Chemin(){
-		return(this.voisinsEntrants.length==3);
+		int cpt = 0;
+		for(Ville v : this.voisinsSortants){
+			if(v != null)
+				if(cpt == 3)
+					return false;
+				cpt++;
+		}
+		
+		return cpt == 3;
 	
 	}
 	
 	// *Reworked by Legend: Added villes between them
 	public boolean voisinDifferents(){
-        //Partie1: verifie si les voisins sont diff de la ville elle meme
+        /*
+         * //Partie1: verifie si les voisins sont diff de la ville elle meme		
 		for (Ville v : this.voisinsEntrants){
 			if (this.typeV == v.typeV) { 
 				return false;
@@ -139,17 +163,21 @@ public class Ville {
         		return false;
         		}
         	}
+        */
+        
         //Partie2: verifie si les voisins sont tts de type diff
         for(int i=0; i<this.voisinsEntrants.length; i++){
         	for(int j = i+1; j<this.voisinsEntrants.length; j++){
-        		if (this.voisinsEntrants[i] == this.voisinsEntrants[j]) { 
+        		//if (this.voisinsEntrants[i] == this.voisinsEntrants[j]) { 
+        		if (this.voisinsEntrants[i].equals(this.voisinsEntrants[j])) {
     				return false;
     				}
     			}
         	}
         for(int i=0; i<this.voisinsSortants.length; i++){
         	for(int j = i+1; j<this.voisinsSortants.length; j++){
-        		if (this.voisinsSortants[i] == this.voisinsSortants[j]) { 
+        		//if (this.voisinsSortants[i] == this.voisinsSortants[j]) { 
+        		if (this.voisinsSortants[i].equals(this.voisinsSortants[j])) {        		
     				return false;
     				}
     			}
@@ -160,31 +188,37 @@ public class Ville {
 	
 	// *Reworked by Legend: Added villes sortant
 	public boolean plusFleurie(){
+		/*
 		for (Ville v : this.voisinsEntrants){
-			if (this.nombreFleurs<v.nombreFleurs){
+			if (this.nombreFleurs < v.nombreFleurs){
 				return false;
 				}
 			
 		}
+		*/
+		
 		for (Ville v : this.voisinsSortants){
-			if (this.nombreFleurs<v.nombreFleurs){
+			if (this.nombreFleurs < v.nombreFleurs){
 				return false;
 				}
 			
 		}
-		return true;
+		return true;		
 	}
 	
 	// *Reworked by Legend: Use method equals with strings!
 	public boolean methodeBizzare(){
-		if (this.typeV !=types.valueOf("ordinaire") && this.couleur.equalsIgnoreCase("Vert")){
+		//if (this.typeV !=types.valueOf("ordinaire") && this.couleur.equalsIgnoreCase("Vert")){
+		if (!this.typeV.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")){
 			for(Ville v : this.voisinsEntrants){
-				if(v.couleur.equalsIgnoreCase("Rouge") == false){
+				//if(v.couleur.equalsIgnoreCase("Rouge") == false){
+				if( ! v.couleur.equalsIgnoreCase("Rouge")){
 					return false;
 					}
 				}
 			for(Ville v : this.voisinsSortants){
-				if(v.couleur.equalsIgnoreCase("Rouge") == false){
+				//if(v.couleur.equalsIgnoreCase("Rouge") == false){
+				if( ! v.couleur.equalsIgnoreCase("Rouge")){
 					return false;
 					}
 				}
@@ -231,6 +265,8 @@ public class Ville {
 		return false;
 	}
 	
+	// *Made by Kmy: 
+	//This isnt working
 	public boolean existeChemin(Ville debut,Ville fin){
 		Arrays.sort(voisinsSortants);
 		boolean v=false;
@@ -254,5 +290,17 @@ public class Ville {
 	             }
 		return false;
 	}
+
+	public void addVilleSort(Ville v){
+		this.voisinsSortants[this.numSort] = v;
+		this.numSort++;
+	}
+	
+	public void addVilleEnt(Ville v){
+		this.voisinsEntrants[this.numEnt] = v;
+		this.numEnt++;
+	}
+	
+	
 	
 }

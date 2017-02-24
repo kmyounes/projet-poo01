@@ -1,1 +1,6 @@
  pour les voisins vaut mieux faire deux tableaux, pour les routes entrante et sortantes, pour généraliser le terme de voisins directs!
+
+ 
+ //This isnt working
+	       public boolean existeChemin(Ville debut,Ville fin){
+	       System.out.println(v.existeChemin(v, t));
