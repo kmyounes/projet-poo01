@@ -1,14 +1,14 @@
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Ville {
   //=====================Types=============================
   private enum types{
 	  agricole, touristique, industrielle, ordinaire
-	  };
- 
-  
-	
+	  }
+
+
 	//=====================Variables========================
 	
 	private String nom,wilaya;
@@ -259,10 +259,7 @@ public class Ville {
 				return false;
 			}
 		}
-		if(tampon.voisinSort(fin)){
-			return true;
-		}
-		return false;
+		return tampon.voisinSort(fin);
 	}
 	
 	// *Made by Kmy: 
@@ -300,7 +297,71 @@ public class Ville {
 		this.voisinsEntrants[this.numEnt] = v;
 		this.numEnt++;
 	}
-	
-	
-	
+	//====== Pratitionnement
+	private boolean appartientPas(ArrayList<ArrayList<Ville>> parts){
+		for(ArrayList<Ville>a : parts ) {
+			if (a.contains(this)) return false;
+		}
+		return true;
+	}
+
+	/*static public ArrayList<ArrayList<Ville>> Partitons(){
+		ArrayList<ArrayList<Ville>> G = new ArrayList<ArrayList<Ville>>();
+		ArrayList<Ville> tmp = new ArrayList<Ville>();
+		for (Ville v: Application.villes){
+			if(v.appartientPas(G)) {
+
+				tmp = new ArrayList<Ville>();
+				tmp.add(v);
+				if (v.voisinsSortants != null) {
+					for (int i=0;i<v.voisinsSortants.length-1;i++) {
+						if (v.voisinsSortants[i].voisinsSortants != null) {
+							for (int j=0;j< v.voisinsSortants[i].voisinsSortants.length;j++) {
+								if (v.voisinsSortants[i].voisinsSortants[j].equals(v)) tmp.add(v.voisinsSortants[i].voisinsSortants[j]);
+							}
+						}
+					}
+
+				}
+			}
+			G.add(tmp);
+		}
+      return G;
+
+	}
+ */
+
+	public ArrayList<Ville> composantConnexe(){
+ int i=0;
+ int j=0;
+		ArrayList<Ville> tmp= new ArrayList<Ville>();
+		tmp.add(this);
+		if (this.voisinsSortants != null) {
+			while(this.voisinsSortants[i]!=null){
+				Ville v=this.voisinsSortants[i];
+				if (v.getVoisinsSortants() != null) {
+					while(this.voisinsSortants[i].getVoisinsSortants()[j]!=null) {
+						if (this.voisinsSortants[i].voisinsSortants[j].equals(this)) tmp.add(this.voisinsSortants[i]);
+				        j++;
+					}
+				}
+				i++;
+			}
+		}
+return tmp;
+	}
+
+public static ArrayList<ArrayList<Ville>> partitionsConnexes(){
+	ArrayList<ArrayList<Ville>> g = new ArrayList<ArrayList<Ville>>();
+	for(Ville v: Application.villes) g.add(v.composantConnexe());
+
+	return g;
+}
+
+
+
+
+
+
+
 }

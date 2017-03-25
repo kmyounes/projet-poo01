@@ -2,12 +2,13 @@ import java.util.*;
 
 
 public class Application {
+	//Stockage de villes dans un tableau dynamique
+
+	public static ArrayList<Ville> villes = new ArrayList<Ville>(5);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//Stockage de villes dans un tableau dynamique
-		ArrayList<Ville> villes = new ArrayList<Ville>(5);
-		/*
+	/*
 		Ville v = new Ville("Babez", "", 365.72, 10000);
 		 
 		villes.add(v);
@@ -40,6 +41,7 @@ public class Application {
 		k.addVilleSort(t);
 		s.addVilleSort(k);
 		v.addVilleSort(s);
+		s.addVilleSort(v);
 		v.addVilleSort(new Ville("Boumerdess", "", 0, 0));
 		
 		v.addVilleSort(new Ville("Setif", "", 0, 0));
@@ -65,13 +67,15 @@ public class Application {
 		
 		//afficheReseauVille(v);
 		afficheReseauArray(villes);
-		
+
+		ArrayList<Ville> o = b.composantConnexe();
+
 		
 		
 	}
 	
 	public static Ville recherche(Collection<Ville> liste, String nom){
-		
+
 		for(Ville v : liste){
 			if(v.getNom().equals(nom))
 				return v;
