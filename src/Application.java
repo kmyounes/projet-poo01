@@ -2,37 +2,19 @@ import java.util.*;
 
 
 public class Application {
-	//Stockage de villes dans un tableau dynamique
-
-	public static ArrayList<Ville> villes = new ArrayList<Ville>(5);
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	/*
-		Ville v = new Ville("Babez", "", 365.72, 10000);
-		 
-		villes.add(v);
-		v.setNombreFleurs(0);
-		v.setType("ordinaire");
-		//v.couleurAffiche();
-		//modifieVille(v);
+		//Stockage de villes dans un tableau dynamique
+		ArrayList<Ville> villes = new ArrayList<Ville>(5);
 		
-		Ville s = new Ville("Alger", "", 365.72, 10000);
-		Ville k = new Ville("Bouira", "Hi", 32, 44);
-		s.addVilleSort(k);
-		//k.addVilleSort(new Ville("Setif", "Hi", 32, 44));
-		s.addVilleSort(new Ville("Mostkanim", "Hi", 32, 44));
-		
-		villes.add(s);
-		*/
 		
 		Ville v, s, k, t, b;
 		
 		v = new Ville("Babez", "", 0, 0);
 		villes.add(v);
-		//afficheReseauVille(v);
 		
-		v = new Ville("Alger", "", 0, 0); 
+		v = new Ville("Alger", "", 0, 0, 1, Ville.types.ordinaire); 
 		s = new Ville("Blida", "", 0, 0);
 		s.addVilleSort(new Ville("Oran", "", 0, 0));
 		k = new Ville("Telemcen", "", 0, 0);
@@ -41,7 +23,6 @@ public class Application {
 		k.addVilleSort(t);
 		s.addVilleSort(k);
 		v.addVilleSort(s);
-		s.addVilleSort(v);
 		v.addVilleSort(new Ville("Boumerdess", "", 0, 0));
 		
 		v.addVilleSort(new Ville("Setif", "", 0, 0));
@@ -67,23 +48,39 @@ public class Application {
 		
 		//afficheReseauVille(v);
 		afficheReseauArray(villes);
-
-		ArrayList<Ville> o = b.composantConnexe();
-
+		
+		System.out.println();
+		System.out.println();
+		
+		afficherListeVilles(villes);
+		
+		System.out.println(rechListe(villes, "Medeia"));
+		
+		//System.out.println(v.existeChemin(s));
 		
 		
 	}
 	
-	public static Ville recherche(Collection<Ville> liste, String nom){
-
+	public static Ville rechListe(Collection<Ville> villes, String nom){
+		/*
 		for(Ville v : liste){
 			if(v.getNom().equals(nom))
 				return v;
+		}
+		*/
+		Ville temp;
+		
+		for(Ville v: villes){
+			temp = v.recherche(nom);
+			if(temp != null)
+				return temp;
+			
 		}
 		
 		return null;
 		
 	}
+	
 	
 	public static void modifieVille(Ville v){
 		int choice = 1;
@@ -147,10 +144,11 @@ public class Application {
 			System.out.println("Ville n'existe pas dans la liste!");
 			return false;
 		}
-			
+				
 		liste.remove(v);
 		System.out.println("Operation terminee");
 		return true;
+		
 		
 	}
 	
@@ -170,12 +168,14 @@ public class Application {
 		System.out.print(v.getNom());
 		
 		numSpace += v.getNom().length();
+		//numSpace += 5;
 				
 		if( ! v.pasChemin()){
 			
 			boolean space = false;
 			
-			for(Ville temp : v.getVoisinsSortants()){
+			//for(Ville temp : v.getVoisinsSortants()){
+			for(Ville temp : v.getVoisSort()){
 				
 				if(temp != null){
 					if(space){
@@ -185,6 +185,7 @@ public class Application {
 						Arrays.fill(chars, ' ');
 						String result = new String(chars);
 						System.out.print(result);
+						
 						
 					} else {
 						space = !space;
@@ -196,10 +197,29 @@ public class Application {
 					afficheReseauVille(temp, numSpace ,i+1);
 					
 				}
-					
 			}
 		}
+		
 		System.out.println();
+	}
+	
+	public static void afficherListeVilles(ArrayList<Ville> liste){
+		String vert = "", rouge = "", orange= "";
+		
+		for(Ville v: liste){
+			if(v.getCouleur().equalsIgnoreCase("vert"))
+				vert = vert + " " + v.getNom();			
+			if(v.getCouleur().equalsIgnoreCase("rouge"))
+				rouge = rouge + " " + v.getNom();
+			if(v.getCouleur().equalsIgnoreCase("orange"))
+				orange = orange + " " + v.getNom();
+		}
+		
+		System.out.println("La liste des villes: ");
+		System.out.println("Vert:  " + vert);
+		System.out.println("Rouge:  " + rouge);
+		System.out.println("Orange:  " + orange);
+		
 	}
 
 }

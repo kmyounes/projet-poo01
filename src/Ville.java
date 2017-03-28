@@ -4,34 +4,83 @@ import java.util.Arrays;
 
 public class Ville {
   //=====================Types=============================
-  private enum types{
+  public enum types{
 	  agricole, touristique, industrielle, ordinaire
-	  }
-
-
+	  };
+  
+	
 	//=====================Variables========================
 	
 	private String nom,wilaya;
 	private double superficie;
-	private int nombreFleurs, habitants, numEnt = 0, numSort = 0;  //numSort: last index in the Sortant table
+	private int nombreFleurs, habitants;  
+	/*
 	private Ville[] voisinsEntrants;
 	private Ville[] voisinsSortants;
+	//numSort: last index in the Sortant table
+	private int numEnt = 0, numSort = 0;
+	*/
+	private ArrayList<Ville> voisEnt;
+	private ArrayList<Ville> voisSort;
 	private types typeV;
 	private String couleur;
 	private static int numero = 0;
-
+	
   //=====================Constructeurs========================
-
+	
+	
+	
 	public Ville(String nom, String wilaya, double superficie, int habitants) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
+		/*
 		this.voisinsEntrants = new Ville[10];
 		this.voisinsSortants = new Ville[10];
+		*/
+		this.voisEnt = new ArrayList<Ville>();
+		this.voisSort = new ArrayList<Ville>();
 		numero ++;
+		
+		//Initialisation couleur
+		initCouleur();
 	}
-  
+	
+	public Ville(String nom, String wilaya, double superficie, int habitants, int nbFleur, types type) {
+		this.nom = nom;
+		this.wilaya = wilaya;
+		this.superficie = superficie;
+		this.habitants = habitants;
+		this.nombreFleurs = nbFleur;
+		this.typeV = type;
+		/*
+		this.voisinsEntrants = new Ville[10];
+		this.voisinsSortants = new Ville[10];
+		*/
+		this.voisEnt = new ArrayList<Ville>();
+		this.voisSort = new ArrayList<Ville>();
+		numero ++;
+		
+		//Initialisation couleur
+		initCouleur();
+	}
+	
+	private void initCouleur(){
+		
+		if(this.typeV==types.valueOf("ordinaire") &&( this.nombreFleurs<=1)){
+			this.couleur="Rouge";
+		}
+		else if ((this.typeV==types.valueOf("ordinaire") && this.nombreFleurs>1) || (this.typeV!=types.valueOf("ordinaire") && this.nombreFleurs<=1 ) ){
+     		//afficher en orange	
+			this.couleur="Orange";
+		}
+		else {
+			//afficher en vert
+			this.couleur="Vert";
+		}
+	}
+	
 	//=====================Geters/Seters========================
 	
 	public String getNom() {
@@ -83,45 +132,99 @@ public class Ville {
 		this.nombreFleurs = nombreFleurs;
 	}
 	
+	/*
 	public Ville[] getVoisinsEntrants() {
 		return voisinsEntrants;
 	}
-
+	
 	public void setVoisinsEntrants(Ville[] voisinsEntrants) {
 		this.voisinsEntrants = voisinsEntrants;
 	}
-
+	
 	public Ville[] getVoisinsSortants() {
 		return voisinsSortants;
 	}
-
+	
 	public void setVoisinsSortants(Ville[] voisinsSortants) {
 		this.voisinsSortants = voisinsSortants;
 	}
-
-	public int getNumero(){
+	*/
+	
+	public static int getNumero(){
 		return numero;
 	}
 	
+	public static void setNumero(int numero) {
+		Ville.numero = numero;
+	}
+	
+	public String getCouleur() {
+		return couleur;
+	}
+	
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
+	}
+	
+	public ArrayList<Ville> getVoisEnt() {
+		return voisEnt;
+	}
+	
+	public void setVoisEnt(ArrayList<Ville> voisEnt) {
+		this.voisEnt = voisEnt;
+	}
+	
+	public ArrayList<Ville> getVoisSort() {
+		return voisSort;
+	}
+
+	public void setVoisSort(ArrayList<Ville> voisSort) {
+		this.voisSort = voisSort;
+	}
+
+	public types getTypeV() {
+		return typeV;
+	}
+
+	public void setTypeV(types typeV) {
+		this.typeV = typeV;
+	}
 	
 	
+	public void addVilleSort(Ville v){
+		/*
+		this.voisinsSortants[this.numSort] = v;
+		this.numSort++;
+		*/
+		this.voisSort.add(v);
+	}
+	
+	public void addVilleEnt(Ville v){
+		/*
+		this.voisinsEntrants[this.numEnt] = v;
+		this.numEnt++;
+		*/
+		this.voisEnt.add(v);
+	}
+	
+	
+	public String toString() {
+		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
+				+ nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
+	}
+		
 	//=====================Méthodes========================
+
+
+	
+
+	
 
 	// *Reworked by Legend 
 	public void couleurAffiche(){
-		System.out.printf("Ville de couleur: ");
-		if(this.typeV==types.valueOf("ordinaire") &&( this.nombreFleurs<=1)){
-			this.couleur="Rouge";
-		}
-		else if ((this.typeV==types.valueOf("ordinaire") && this.nombreFleurs>1) || (this.typeV!=types.valueOf("ordinaire") && this.nombreFleurs<=1 ) ){
-     		//afficher en orange	
-			this.couleur="Orange";
-		}
-		else {
-			//afficher en vert
-			this.couleur="Vert";
-		}
-		System.out.print(this.couleur);
+		
+		System.out.println("Ville de couleur: " + this.couleur);
+		
 	}
 	
 	/*
@@ -129,7 +232,14 @@ public class Ville {
 	 * 
 	 */
 	public boolean pasChemin(){
+		/*
+		 * Tab statique
 		for(Ville v : this.voisinsSortants){
+			if(v != null)
+				return false;
+		}
+		*/
+		for(Ville v : this.voisSort){
 			if(v != null)
 				return false;
 		}
@@ -138,15 +248,25 @@ public class Ville {
 	
 	public boolean existe3Chemin(){
 		int cpt = 0;
+		/*
+		 * Tab statique
 		for(Ville v : this.voisinsSortants){
 			if(v != null)
 				if(cpt == 3)
 					return false;
 				cpt++;
 		}
+		*/
+		for(Ville v : this.voisSort){
+			if(v != null){
+				if( cpt == 3)
+					return false;
+				else
+					cpt++;
+			}
+		}
 		
 		return cpt == 3;
-	
 	}
 	
 	// *Reworked by Legend: Added villes between them
@@ -164,7 +284,9 @@ public class Ville {
         		}
         	}
         */
-        
+        /*
+         * 
+         
         //Partie2: verifie si les voisins sont tts de type diff
         for(int i=0; i<this.voisinsEntrants.length; i++){
         	for(int j = i+1; j<this.voisinsEntrants.length; j++){
@@ -181,7 +303,23 @@ public class Ville {
     				return false;
     				}
     			}
-        	}
+        	}	
+        */
+		for(int i = 0; i < this.voisSort.size(); i++){
+			for(int j = 0; j < this.voisSort.size(); i++){
+				if(this.voisSort.get(i).equals(this.voisSort.get(j)))
+					return false;
+			}
+		}
+		
+		for(int i = 0; i < this.voisEnt.size(); i++){
+			for(int j = 0; j < this.voisEnt.size(); i++){
+				if(this.voisEnt.get(i).equals(this.voisEnt.get(j)))
+					return false;
+			}
+		}
+		
+		
 		return true;
 	}
 	
@@ -196,13 +334,20 @@ public class Ville {
 			
 		}
 		*/
-		
+		/*
+		 * 
 		for (Ville v : this.voisinsSortants){
 			if (this.nombreFleurs < v.nombreFleurs){
 				return false;
 				}
 			
 		}
+		*/
+		for(Ville v: this.voisSort){
+			if(this.getNombreFleurs() < v.getNombreFleurs())
+				return false;
+		}
+		
 		return true;		
 	}
 	
@@ -210,48 +355,70 @@ public class Ville {
 	public boolean methodeBizzare(){
 		//if (this.typeV !=types.valueOf("ordinaire") && this.couleur.equalsIgnoreCase("Vert")){
 		if (!this.typeV.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")){
+			
+			/*
+			 * Tab Statique
 			for(Ville v : this.voisinsEntrants){
-				//if(v.couleur.equalsIgnoreCase("Rouge") == false){
+				
 				if( ! v.couleur.equalsIgnoreCase("Rouge")){
 					return false;
 					}
 				}
 			for(Ville v : this.voisinsSortants){
-				//if(v.couleur.equalsIgnoreCase("Rouge") == false){
+				
 				if( ! v.couleur.equalsIgnoreCase("Rouge")){
 					return false;
 					}
 				}
+		    */
+			
+			for(Ville v: this.voisEnt){
+				if( ! v.getCouleur().equalsIgnoreCase("Rouge"))
+					return false;
+			}
+			for(Ville v : this.voisSort){				
+				if( ! v.getCouleur().equalsIgnoreCase("Rouge"))
+					return false;
+				}
+			
+			
 			return true;
 			}
-		else {
+		else 
 			return false;
-			}
+			
 		}
 	
 	// *Made by Legend: Verifie si v appartient au liste des voisins Entrant
 	public boolean voisinEnt(Ville v){
+		/*
+		 * Tab statique
 		for(Ville tampon : this.voisinsEntrants){
 			if(tampon.equals(v)){
 				return true;
 			}
-		}
+		}		
 		return false;
+		*/
+		return this.voisEnt.contains(v);
 	}
 
 	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
 	public boolean voisinSort(Ville v){
+		/*
 		for(Ville tampon : this.voisinsSortants){
 			if(tampon.equals(v)){
 				return true;
 			}
 		}
 		return false;
+		*/
+		return this.voisSort.contains(v);
 	}
 	
 	public boolean cheminExiste(Ville fin, Ville... chemin){
 		Ville tampon = this;
-		
+		/*
 		for(int i = 0; i < chemin.length; i++){
 			if(tampon.voisinSort(chemin[i])){
 				tampon = chemin[i];
@@ -259,109 +426,54 @@ public class Ville {
 				return false;
 			}
 		}
-		return tampon.voisinSort(fin);
+		if(tampon.voisinSort(fin)){
+			return true;
+		}
+		return false;
+		*/
+		for(int i = 0; i < chemin.length; i++){
+			if(tampon.voisinSort(chemin[i])){
+				tampon = chemin[i];
+			} else {
+				return false;
+			}	
+		}
+		
+		if(tampon.voisinSort(fin))
+			return true;
+		
+		return false;
+			
 	}
 	
-	// *Made by Kmy: 
-	//This isnt working
-	public boolean existeChemin(Ville debut,Ville fin){
-		Arrays.sort(voisinsSortants);
-		boolean v=false;
-		if(this.voisinsSortants.length==0 ){
-			return false;
-		}
-		if (Arrays.binarySearch(voisinsSortants, fin)>=0){
-			return true;
-			}else
-				{
-					for(Ville V: debut.voisinsSortants){
-				
-			
-					v=existeChemin(V,fin);
-					if(v){
-							return v;
-			
-						  }
-		             }
+	public boolean existeChemin(Ville fin){
 		
-	             }
+		if(this.equals(fin))
+			return true;
+		
+		for(Ville v: this.voisSort){
+			if(v.existeChemin(fin))
+				return true;
+		}
+		
 		return false;
 	}
-
-	public void addVilleSort(Ville v){
-		this.voisinsSortants[this.numSort] = v;
-		this.numSort++;
-	}
 	
-	public void addVilleEnt(Ville v){
-		this.voisinsEntrants[this.numEnt] = v;
-		this.numEnt++;
-	}
-	//====== Pratitionnement
-	private boolean appartientPas(ArrayList<ArrayList<Ville>> parts){
-		for(ArrayList<Ville>a : parts ) {
-			if (a.contains(this)) return false;
+	
+	public Ville recherche(String nom){
+		
+		if(this.getNom().equals(nom))
+			return this;
+		
+		Ville temp;
+		
+		for(Ville v: this.voisSort){
+			temp = v.recherche(nom);
+			if(temp != null)
+				return temp;
 		}
-		return true;
+		
+		return null;
 	}
-
-	/*static public ArrayList<ArrayList<Ville>> Partitons(){
-		ArrayList<ArrayList<Ville>> G = new ArrayList<ArrayList<Ville>>();
-		ArrayList<Ville> tmp = new ArrayList<Ville>();
-		for (Ville v: Application.villes){
-			if(v.appartientPas(G)) {
-
-				tmp = new ArrayList<Ville>();
-				tmp.add(v);
-				if (v.voisinsSortants != null) {
-					for (int i=0;i<v.voisinsSortants.length-1;i++) {
-						if (v.voisinsSortants[i].voisinsSortants != null) {
-							for (int j=0;j< v.voisinsSortants[i].voisinsSortants.length;j++) {
-								if (v.voisinsSortants[i].voisinsSortants[j].equals(v)) tmp.add(v.voisinsSortants[i].voisinsSortants[j]);
-							}
-						}
-					}
-
-				}
-			}
-			G.add(tmp);
-		}
-      return G;
-
-	}
- */
-
-	public ArrayList<Ville> composantConnexe(){
- int i=0;
- int j=0;
-		ArrayList<Ville> tmp= new ArrayList<Ville>();
-		tmp.add(this);
-		if (this.voisinsSortants != null) {
-			while(this.voisinsSortants[i]!=null){
-				Ville v=this.voisinsSortants[i];
-				if (v.getVoisinsSortants() != null) {
-					while(this.voisinsSortants[i].getVoisinsSortants()[j]!=null) {
-						if (this.voisinsSortants[i].voisinsSortants[j].equals(this)) tmp.add(this.voisinsSortants[i]);
-				        j++;
-					}
-				}
-				i++;
-			}
-		}
-return tmp;
-	}
-
-public static ArrayList<ArrayList<Ville>> partitionsConnexes(){
-	ArrayList<ArrayList<Ville>> g = new ArrayList<ArrayList<Ville>>();
-	for(Ville v: Application.villes) g.add(v.composantConnexe());
-
-	return g;
-}
-
-
-
-
-
-
-
+			
 }
