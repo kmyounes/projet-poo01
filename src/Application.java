@@ -80,7 +80,9 @@ public class Application {
 		
 		//VilleV2.afficheReseauArray();
 
-		System.out.println(v.exixsteCheminFinal(s));
+		v.afficheReseauVille();
+		
+		
 		//VilleV2.afficherListeVilles();
 
 		

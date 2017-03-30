@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class VilleV2 {
-    public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>(5);
-    ;
-    ArrayList<VilleV2> allVilles= new ArrayList<VilleV2>() ;
+    //La liste des 1ere villes
+	public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>(5);
+    
+	//La liste de toutes les villes
+    private static ArrayList<VilleV2> allVilles= new ArrayList<VilleV2>() ;
 
 
     //=====================Variables========================
@@ -19,6 +21,12 @@ public class VilleV2 {
     private types typeV;
     private String couleur;
 
+    
+
+    //=====================Constructeurs========================
+
+    
+  
     public VilleV2(String nom, String wilaya, double superficie, int habitants) {
         this.nom = nom;
         this.wilaya = wilaya;
@@ -26,112 +34,56 @@ public class VilleV2 {
         this.habitants = habitants;
         this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
+        
+        if(! VilleV2.allVilles.contains(this)){
+        	VilleV2.allVilles.add(this);
+        }
+        
         numero++;
 
         //Initialisation couleur
         initCouleur();
     }
 
-    //=====================Constructeurs========================
-
-
-    public VilleV2(String nom, String wilaya, double superficie, int habitants, int nbFleur, types type) {
+    public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types type) {
         this.nom = nom;
         this.wilaya = wilaya;
         this.superficie = superficie;
         this.habitants = habitants;
-        this.nombreFleurs = nbFleur;
+        this.nombreFleurs = nombreFleurs;
         this.typeV = type;
         this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
+        
+        if(! VilleV2.allVilles.contains(this)){
+        	VilleV2.allVilles.add(this);
+        }
+        
         numero++;
 
         //Initialisation couleur
         initCouleur();
     }
-
-    public static int getNumero() {
-        return numero;
-    }
-
-    public static void setNumero(int numero) {
-        VilleV2.numero = numero;
-    }
-
-    //=====================Geters/Seters========================
-
-    public static void afficheReseauArray() {
-
-        for (VilleV2 v : VilleV2.villes) {
-            afficheReseauVille(v, 0, 0);
+    
+    public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeV, String couleur) {
+		this.nom = nom;
+		this.wilaya = wilaya;
+		this.superficie = superficie;
+		this.nombreFleurs = nombreFleurs;
+		this.habitants = habitants;
+		this.typeV = typeV;
+		this.couleur = couleur;
+		
+		this.voisEnt = new ArrayList<VilleV2>();
+        this.voisSort = new ArrayList<VilleV2>();
+        
+        if(! VilleV2.allVilles.contains(this)){
+        	VilleV2.allVilles.add(this);
         }
-    }
-
-    public static void afficheReseauVille(VilleV2 v) {
-        afficheReseauVille(v, 0, 0);
-    }
-
-    public static void afficheReseauVille(VilleV2 v, int numSpace, int i) {
-
-        System.out.print(v.getNom());
-
-        numSpace += v.getNom().length();
-        //numSpace += 5;
-
-        if (!v.pasChemin()) {
-
-            boolean space = false;
-
-            //for(Ville temp : v.getVoisinsSortants()){
-            for (VilleV2 temp : v.getVoisSort()) {
-
-                if (temp != null) {
-                    if (space) {
-
-                        //make a string of ' ' numSpaces time.
-                        char[] chars = new char[numSpace + i * 4];
-                        Arrays.fill(chars, ' ');
-                        String result = new String(chars);
-                        System.out.print(result);
-
-
-                    } else {
-                        space = !space;
-
-                    }
-
-                    System.out.print(" => ");
-
-                    afficheReseauVille(temp, numSpace, i + 1);
-
-                }
-            }
-        }
-
-        System.out.println();
-    }
-
-    public static void afficherListeVilles() {
-        String vert = "", rouge = "", orange = "";
-
-        for (VilleV2 v : VilleV2.villes) {
-            if (v.getCouleur().equalsIgnoreCase("vert"))
-                vert = vert + " " + v.getNom();
-            if (v.getCouleur().equalsIgnoreCase("rouge"))
-                rouge = rouge + " " + v.getNom();
-            if (v.getCouleur().equalsIgnoreCase("orange"))
-                orange = orange + " " + v.getNom();
-        }
-
-        System.out.println("La liste des villes: ");
-        System.out.println("Vert:  " + vert);
-        System.out.println("Rouge:  " + rouge);
-        System.out.println("Orange:  " + orange);
-
-    }
-
-
-
+        
+        numero++;
+	}
+  
     private void initCouleur() {
 
         if (this.typeV == types.valueOf("ordinaire") && (this.nombreFleurs <= 1)) {
@@ -143,6 +95,16 @@ public class VilleV2 {
             //afficher en vert
             this.couleur = "Vert";
         }
+    }
+
+    //=====================Geters/Seters========================
+
+    public static int getNumero() {
+        return numero;
+    }
+
+    public static void setNumero(int numero) {
+        VilleV2.numero = numero;
     }
 
     public String getNom() {
@@ -221,26 +183,207 @@ public class VilleV2 {
     public types getTypeV() {
         return typeV;
     }
-
-    //=====================Méthodes========================
-
+    
     public void setTypeV(types typeV) {
         this.typeV = typeV;
     }
+    
+    public String toString() {
+        return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
+                + nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
+    }
+    
+
+    //=====================Méthodes========================
+
+    
 
     public void addVilleSort(VilleV2 v) {
         this.voisSort.add(v);
+        v.addVilleEnt(this);
     }
 
     public void addVilleEnt(VilleV2 v) {
         this.voisEnt.add(v);
     }
+    
+    public void afficheReseauVille() {
+    	int lvl = 0;
+        ArrayList<VilleV2> liste = new ArrayList<VilleV2>();
+        ArrayList<VilleV2> tampon = new ArrayList<VilleV2>();
+        VilleV2 tmp = this;
+        tampon.add(this);
+        
+        while(! tampon.isEmpty()){
+        	tmp = tampon.get(0);
+        	tampon.remove(0);
+        	
+        	if(tmp != null){
+        		//make a string of ' ' numSpaces time.
+    			char[] chars = new char[ lvl * 5 ];
+    			Arrays.fill(chars, ' ');
+    			String result = new String(chars);
+    			System.out.print(result);
+    			
+    			if(liste.contains(tmp)){
+            		System.out.print(" => " + tmp.getNom() + " # " );
+            		System.out.println();
+            		
+            		continue;
+            	} else {
+            		System.out.println(" => " + tmp.getNom());
+            		liste.add(tmp);
+            	}
+            	
+            	if(! tmp.getVoisSort().isEmpty()){
+            		tampon.addAll(0, tmp.getVoisSort());
+            		tampon.add(tmp.getVoisSort().size(), null);
+            		lvl++;
 
-    public String toString() {
-        return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
-                + nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
+            	}
+    			
+        	} else {
+            	
+            	lvl = lvl > 0 ? lvl - 1 : 0;
+            }
+        	
+        	
+        	
+        } 
+        /*
+        for(VilleV2 v: liste){
+			System.out.println(v);
+		}
+        */
+    }
+    
+    /*
+    public void afficheReseauVille() {
+        int lvl = 0;
+        ArrayList<VilleV2> liste = new ArrayList<VilleV2>();
+        ArrayList<VilleV2> tampon = new ArrayList<VilleV2>();
+        VilleV2 tmp = this;
+        
+        tampon.add(this);
+        
+        while( tmp != null){
+        	if(tampon.size()>0){
+        		tmp = tampon.get(0);
+            	tampon.remove(0);        		
+        	}
+        	
+        	
+        	if(tmp != null){
+        		
+            	//make a string of ' ' numSpaces time.
+    			char[] chars = new char[ lvl * 5 ];
+    			Arrays.fill(chars, ' ');
+    			String result = new String(chars);
+    			System.out.print(result);
+            	
+            	if(liste.contains(tmp)){
+            		System.out.print(" # " + tmp.getNom());
+            		
+            		break;
+            	} else {
+            		System.out.println(tmp.getNom());
+            		liste.add(tmp);
+            	}
+            	
+            	if(! tmp.getVoisSort().isEmpty()){
+            		tampon.addAll(0, tmp.getVoisSort());
+            		//tampon.add(null);
+            		lvl++;
+
+            	} else {
+            		//lvl = lvl > 0 ? lvl - 1 : 0;
+            	}
+        	} else {
+        		System.out.println(" TMP = NULL");
+        		for(VilleV2 v: liste){
+        			System.out.println(v);
+        		}
+        		
+        		
+        	}
+ 
+        }
+    }
+    */
+    
+    
+    /*
+    public static void afficheReseauArray() {
+
+        for (VilleV2 v : VilleV2.villes) {
+            afficheReseauVille(v, 0, 0);
+        }
     }
 
+    public static void afficheReseauVille(VilleV2 v) {
+        afficheReseauVille(v, 0, 0);
+    }
+
+    public static void afficheReseauVille(VilleV2 v, int numSpace, int i) {
+
+        System.out.print(v.getNom());
+
+        numSpace += v.getNom().length();
+        //numSpace += 5;
+
+        if (!v.pasChemin()) {
+
+            boolean space = false;
+
+            //for(Ville temp : v.getVoisinsSortants()){
+            for (VilleV2 temp : v.getVoisSort()) {
+
+                if (temp != null) {
+                    if (space) {
+
+                        //make a string of ' ' numSpaces time.
+                        char[] chars = new char[numSpace + i * 4];
+                        Arrays.fill(chars, ' ');
+                        String result = new String(chars);
+                        System.out.print(result);
+
+
+                    } else {
+                        space = !space;
+
+                    }
+
+                    System.out.print(" => ");
+
+                    afficheReseauVille(temp, numSpace, i + 1);
+
+                }
+            }
+        }
+
+        System.out.println();
+    }
+    */
+    
+    public static void afficherListeVilles() {
+        String vert = "", rouge = "", orange = "";
+
+        for (VilleV2 v : VilleV2.allVilles) {
+            if (v.getCouleur().equalsIgnoreCase("vert"))
+                vert = vert + " " + v.getNom();
+            if (v.getCouleur().equalsIgnoreCase("rouge"))
+                rouge = rouge + " " + v.getNom();
+            if (v.getCouleur().equalsIgnoreCase("orange"))
+                orange = orange + " " + v.getNom();
+        }
+
+        System.out.println("La liste des villes: ");
+        System.out.println("Vert:  " + vert);
+        System.out.println("Rouge:  " + rouge);
+        System.out.println("Orange:  " + orange);
+
+    }
+    
     // *Reworked by Legend
     public void couleurAffiche() {
 
@@ -359,32 +502,8 @@ public class VilleV2 {
         return false;
 
     }
-
-    public boolean existeChemin(VilleV2 fin) {
-        ArrayList<VilleV2> dejaVu = new ArrayList<VilleV2>();
-
-        return this.existeChemin(fin, dejaVu);
-    }
-
-    private boolean existeChemin(VilleV2 fin, ArrayList<VilleV2> dejaVu) {
-
-        if (this.equals(fin))
-            return true;
-        else
-            dejaVu.add(this);
-
-        //System.out.println("before loop");
-        for (VilleV2 v : this.voisSort) {
-            System.out.println("inside loop");
-            if (dejaVu.contains(this)) {
-                //System.out.println("Inside contains");
-                //if(v.existeChemin(fin, dejaVu))	return true;
-            }
-        }
-
-        return false;
-    }
-
+    
+    
     private ArrayList<VilleV2> ToutVoisins() {
 
         ArrayList<VilleV2> visite = new ArrayList<>();
@@ -417,35 +536,33 @@ public class VilleV2 {
 
     public static VilleV2 rechListe(String nom) {
 
-        VilleV2 temp;
-
-        for (VilleV2 v : VilleV2.villes) {
-            for (VilleV2 a : v.ToutVoisins()){
-                if(a.getNom().compareToIgnoreCase(nom)==0) return a;
-            }
+        for (VilleV2 v : VilleV2.allVilles) {
+        	
+            if(v.getNom().equalsIgnoreCase(nom)) return v;
+            
         }
 
         return null;
 
 }
 
-/*
+    //Recherche dans la ville et ses voisins directs seulement.
     public VilleV2 recherche(String nom) {
 
        if (this.getNom().equals(nom))
             return this;
 
-        VilleV2 temp;
-
         for (VilleV2 v : this.voisSort) {
-            temp = v.recherche(nom);
-            if (temp != null)
-                return temp;
+            
+            if (v.getNom().equals(nom))
+                return v;
+            
         }
 
         return null;
     }
-*/
+
+    
     public boolean supprime() {
 
         if (VilleV2.villes.indexOf(this) == -1) {

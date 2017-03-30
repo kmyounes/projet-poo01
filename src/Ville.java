@@ -354,27 +354,27 @@ public class Ville {
 	public static void afficheReseauArray(){
 		
 		for(Ville v: Ville.villes){
-			afficheReseauVille(v, 0, 0);
+			v.afficheReseauVille( 0, 0);
 		}
 	}
 	
-	public static void afficheReseauVille(Ville v){
-		afficheReseauVille(v, 0, 0);
+	public void afficheReseauVille(){
+		this.afficheReseauVille( 0, 0);
 		}
 	
-	public static void afficheReseauVille(Ville v, int numSpace, int i){
+	public void afficheReseauVille( int numSpace, int i){
 	
-		System.out.print(v.getNom());
+		System.out.print(this.getNom());
 	
-		numSpace += v.getNom().length();
+		numSpace += this.getNom().length();
 		//numSpace += 5;
 			
-		if( ! v.pasChemin()){
+		if( ! this.pasChemin()){
 		
 			boolean space = false;
 		
 			//for(Ville temp : v.getVoisinsSortants()){
-			for(Ville temp : v.getVoisSort()){
+			for(Ville temp : this.getVoisSort()){
 			
 				if(temp != null){
 					if(space){
@@ -393,7 +393,7 @@ public class Ville {
 				
 					System.out.print(" => ");
 				
-					afficheReseauVille(temp, numSpace ,i+1);
+					temp.afficheReseauVille( numSpace ,i+1);
 				
 				}
 			}
