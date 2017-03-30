@@ -2,64 +2,64 @@ import java.util.*;
 
 
 public class Application {
+	
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Stockage de villes dans un tableau dynamique
-		ArrayList<Ville> villes = new ArrayList<Ville>(5);
 		
 		
-		Ville v, s, k, t, b;
 		
-		v = new Ville("Babez", "", 0, 0);
-		villes.add(v);
+		VilleV2 v, s, k, t, b;
 		
-		v = new Ville("Alger", "", 0, 0, 1, Ville.types.ordinaire); 
-		s = new Ville("Blida", "", 0, 0);
-		s.addVilleSort(new Ville("Oran", "", 0, 0));
-		k = new Ville("Telemcen", "", 0, 0);
-		k.addVilleSort(new Ville("Mostghanem", "", 0, 0));
-		t = new Ville("Medeia", "", 0, 0);
+		v = new VilleV2("Babez", "", 0, 0);
+		VilleV2.villes.add(v);
+		
+		v = new VilleV2("Alger", "", 0, 0, 1, VilleV2.types.ordinaire); 
+		s = new VilleV2("Blida", "", 0, 0);
+		s.addVilleSort(new VilleV2("Oran", "", 0, 0));
+		k = new VilleV2("Telemcen", "", 0, 0);
+		v.addVilleSort(k);
+		k.addVilleSort(new VilleV2("Mostghanem", "", 0, 0));
+		t = new VilleV2("Medeia", "", 0, 0);
 		k.addVilleSort(t);
 		s.addVilleSort(k);
 		v.addVilleSort(s);
-		v.addVilleSort(new Ville("Boumerdess", "", 0, 0));
+		v.addVilleSort(new VilleV2("Boumerdess", "", 0, 0));
 		
-		v.addVilleSort(new Ville("Setif", "", 0, 0));
-		v.addVilleSort(new Ville("Tizi", "", 0, 0));
+		v.addVilleSort(new VilleV2("Setif", "", 0, 0));
+		v.addVilleSort(new VilleV2("Tizi", "", 0, 0));
 		
-		//afficheReseauVille(v);
 		
-		villes.add(v);
 		
-		/*
-		 * //This isnt working
-	       public boolean existeChemin(Ville debut,Ville fin){
-	       System.out.println(v.existeChemin(v, t));
-	       
-		 */
+		VilleV2.villes.add(v);
 		
-		b = new Ville("Bouira", "", 0, 0); 
-		b.addVilleSort(new Ville("Setif", "", 0, 0));
-		b.addVilleSort(new Ville("Tizi", "", 0, 0));
-		villes.add(b);
+		
+		b = new VilleV2("Bouira", "", 0, 0); 
+		b.addVilleSort(new VilleV2("Setif", "", 0, 0));
+		b.addVilleSort(new VilleV2("Tizi", "", 0, 0));
+		VilleV2.villes.add(b);
 		
 
 		
-		//afficheReseauVille(v);
-		Ville.afficheReseauArray(villes);
+		
+		//VilleV2.afficheReseauArray();
+		
+		System.out.println(v.existeChemin(k));
 		
 		System.out.println();
 		System.out.println();
 		
-		Ville.afficherListeVilles(villes);
+		//VilleV2.afficherListeVilles();
 		
-		System.out.println(Ville.rechListe(villes, "Medeia"));
+		System.out.println(VilleV2.rechListe( "Medeia"));
 		
-		//System.out.println(v.existeChemin(s));
 		
 		
 	}
+	
+	
 	
 	
 	

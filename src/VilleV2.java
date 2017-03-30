@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Ville {
+public class VilleV2 {
   //=====================Types=============================
   public enum types{
 	  agricole, touristique, industrielle, ordinaire
@@ -15,39 +15,39 @@ public class Ville {
 	private String nom,wilaya;
 	private double superficie;
 	private int nombreFleurs, habitants;  
-	private ArrayList<Ville> voisEnt;
-	private ArrayList<Ville> voisSort;
+	private ArrayList<VilleV2> voisEnt;
+	private ArrayList<VilleV2> voisSort;
 	private types typeV;
 	private String couleur;
 	private static int numero = 0;
-	public static ArrayList<Ville> villes = new ArrayList<Ville>(5);
+	public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>(5);
 	
   //=====================Constructeurs========================
 	
 	
 	
-	public Ville(String nom, String wilaya, double superficie, int habitants) {
+	public VilleV2(String nom, String wilaya, double superficie, int habitants) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
-		this.voisEnt = new ArrayList<Ville>();
-		this.voisSort = new ArrayList<Ville>();
+		this.voisEnt = new ArrayList<VilleV2>();
+		this.voisSort = new ArrayList<VilleV2>();
 		numero ++;
 		
 		//Initialisation couleur
 		initCouleur();
 	}
 	
-	public Ville(String nom, String wilaya, double superficie, int habitants, int nbFleur, types type) {
+	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nbFleur, types type) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
 		this.nombreFleurs = nbFleur;
 		this.typeV = type;
-		this.voisEnt = new ArrayList<Ville>();
-		this.voisSort = new ArrayList<Ville>();
+		this.voisEnt = new ArrayList<VilleV2>();
+		this.voisSort = new ArrayList<VilleV2>();
 		numero ++;
 		
 		//Initialisation couleur
@@ -125,7 +125,7 @@ public class Ville {
 	}
 	
 	public static void setNumero(int numero) {
-		Ville.numero = numero;
+		VilleV2.numero = numero;
 	}
 	
 	public String getCouleur() {
@@ -136,19 +136,19 @@ public class Ville {
 		this.couleur = couleur;
 	}
 	
-	public ArrayList<Ville> getVoisEnt() {
+	public ArrayList<VilleV2> getVoisEnt() {
 		return voisEnt;
 	}
 	
-	public void setVoisEnt(ArrayList<Ville> voisEnt) {
+	public void setVoisEnt(ArrayList<VilleV2> voisEnt) {
 		this.voisEnt = voisEnt;
 	}
 	
-	public ArrayList<Ville> getVoisSort() {
+	public ArrayList<VilleV2> getVoisSort() {
 		return voisSort;
 	}
 
-	public void setVoisSort(ArrayList<Ville> voisSort) {
+	public void setVoisSort(ArrayList<VilleV2> voisSort) {
 		this.voisSort = voisSort;
 	}
 
@@ -161,11 +161,11 @@ public class Ville {
 	}
 	
 	
-	public void addVilleSort(Ville v){
+	public void addVilleSort(VilleV2 v){
 		this.voisSort.add(v);
 	}
 	
-	public void addVilleEnt(Ville v){
+	public void addVilleEnt(VilleV2 v){
 		this.voisEnt.add(v);
 	}
 	
@@ -195,7 +195,7 @@ public class Ville {
 	 */
 	public boolean pasChemin(){
 		
-		for(Ville v : this.voisSort){
+		for(VilleV2 v : this.voisSort){
 			if(v != null)
 				return false;
 		}
@@ -205,7 +205,7 @@ public class Ville {
 	public boolean existe3Chemin(){
 		int cpt = 0;
 		
-		for(Ville v : this.voisSort){
+		for(VilleV2 v : this.voisSort){
 			if(v != null){
 				if( cpt == 3)
 					return false;
@@ -242,7 +242,7 @@ public class Ville {
 	// *Reworked by Legend: Added villes sortant
 	public boolean plusFleurie(){
 		
-		for(Ville v: this.voisSort){
+		for(VilleV2 v: this.voisSort){
 			if(this.getNombreFleurs() < v.getNombreFleurs())
 				return false;
 		}
@@ -257,11 +257,11 @@ public class Ville {
 			
 			
 			
-			for(Ville v: this.voisEnt){
+			for(VilleV2 v: this.voisEnt){
 				if( ! v.getCouleur().equalsIgnoreCase("Rouge"))
 					return false;
 			}
-			for(Ville v : this.voisSort){				
+			for(VilleV2 v : this.voisSort){				
 				if( ! v.getCouleur().equalsIgnoreCase("Rouge"))
 					return false;
 				}
@@ -275,19 +275,19 @@ public class Ville {
 		}
 	
 	// *Made by Legend: Verifie si v appartient au liste des voisins Entrant
-	public boolean voisinEnt(Ville v){
+	public boolean voisinEnt(VilleV2 v){
 		
 		return this.voisEnt.contains(v);
 	}
 
 	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
-	public boolean voisinSort(Ville v){
+	public boolean voisinSort(VilleV2 v){
 		
 		return this.voisSort.contains(v);
 	}
 	
-	public boolean cheminExiste(Ville fin, Ville... chemin){
-		Ville tampon = this;
+	public boolean cheminExiste(VilleV2 fin, VilleV2... chemin){
+		VilleV2 tampon = this;
 		
 		for(int i = 0; i < chemin.length; i++){
 			if(tampon.voisinSort(chemin[i])){
@@ -304,28 +304,38 @@ public class Ville {
 			
 	}
 	
-	public boolean existeChemin(Ville fin){
+	public boolean existeChemin(VilleV2 fin){
+		ArrayList<VilleV2> dejaVu = new ArrayList<VilleV2>();
+		
+		return existeChemin(fin, dejaVu);
+	}
+	
+	private boolean existeChemin(VilleV2 fin, ArrayList<VilleV2> dejaVu){
 		
 		if(this.equals(fin))
 			return true;
+		else
+			dejaVu.add(this);
 		
-		for(Ville v: this.voisSort){
-			if(v.existeChemin(fin))
-				return true;
+		for(VilleV2 v: this.voisSort){
+			if(! dejaVu.contains(this)){
+				if(v.existeChemin(fin, dejaVu))
+					return true;
+			}
 		}
 		
 		return false;
 	}
 	
 	
-	public Ville recherche(String nom){
+	public VilleV2 recherche(String nom){
 		
 		if(this.getNom().equals(nom))
 			return this;
 		
-		Ville temp;
+		VilleV2 temp;
 		
-		for(Ville v: this.voisSort){
+		for(VilleV2 v: this.voisSort){
 			temp = v.recherche(nom);
 			if(temp != null)
 				return temp;
@@ -337,12 +347,12 @@ public class Ville {
 	
 	public boolean supprime(){
 		
-		if(Ville.villes.indexOf(this) == -1){
+		if(VilleV2.villes.indexOf(this) == -1){
 			System.out.println("Ville n'existe pas dans la liste!");
 			return false;
 		}
 				
-		Ville.villes.remove(this);
+		VilleV2.villes.remove(this);
 		System.out.println("Operation terminee");
 		return true;
 		
@@ -352,16 +362,16 @@ public class Ville {
 	
 	public static void afficheReseauArray(){
 		
-		for(Ville v: Ville.villes){
+		for(VilleV2 v: VilleV2.villes){
 			afficheReseauVille(v, 0, 0);
 		}
 	}
 	
-	public static void afficheReseauVille(Ville v){
+	public static void afficheReseauVille(VilleV2 v){
 		afficheReseauVille(v, 0, 0);
 		}
 	
-	public static void afficheReseauVille(Ville v, int numSpace, int i){
+	public static void afficheReseauVille(VilleV2 v, int numSpace, int i){
 	
 		System.out.print(v.getNom());
 	
@@ -373,7 +383,7 @@ public class Ville {
 			boolean space = false;
 		
 			//for(Ville temp : v.getVoisinsSortants()){
-			for(Ville temp : v.getVoisSort()){
+			for(VilleV2 temp : v.getVoisSort()){
 			
 				if(temp != null){
 					if(space){
@@ -404,7 +414,7 @@ public class Ville {
 	public static void afficherListeVilles(){
 		String vert = "", rouge = "", orange= "";
 	
-		for(Ville v: Ville.villes){
+		for(VilleV2 v: VilleV2.villes){
 			if(v.getCouleur().equalsIgnoreCase("vert"))
 				vert = vert + " " + v.getNom();			
 			if(v.getCouleur().equalsIgnoreCase("rouge"))
@@ -420,11 +430,11 @@ public class Ville {
 	
 	}
 
-	public static Ville rechListe( String nom){
+	public static VilleV2 rechListe( String nom){
 		
-		Ville temp;
+		VilleV2 temp;
 	
-		for(Ville v: Ville.villes){
+		for(VilleV2 v: VilleV2.villes){
 			temp = v.recherche(nom);
 			if(temp != null)
 				return temp;
