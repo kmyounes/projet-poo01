@@ -307,7 +307,7 @@ public class VilleV2 {
 	public boolean existeChemin(VilleV2 fin){
 		ArrayList<VilleV2> dejaVu = new ArrayList<VilleV2>();
 		
-		return existeChemin(fin, dejaVu);
+		return this.existeChemin(fin, dejaVu);
 	}
 	
 	private boolean existeChemin(VilleV2 fin, ArrayList<VilleV2> dejaVu){
@@ -317,9 +317,13 @@ public class VilleV2 {
 		else
 			dejaVu.add(this);
 		
+		//System.out.println("before loop");
 		for(VilleV2 v: this.voisSort){
-			if(! dejaVu.contains(this)){
+			//System.out.println("inside loop");
+			if( dejaVu.contains(this)){
+				//System.out.println("Inside contains");
 				if(v.existeChemin(fin, dejaVu))
+					//System.out.println("inside condition");
 					return true;
 			}
 		}
