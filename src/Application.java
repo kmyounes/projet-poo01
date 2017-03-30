@@ -1,3 +1,5 @@
+import com.sun.media.sound.SoftTuning;
+
 import java.util.*;
 
 
@@ -52,7 +54,8 @@ public class Application {
 		s.addVilleSort(new VilleV2("Oran", "", 0, 0));
 		k = new VilleV2("Telemcen", "", 0, 0);
 		k.addVilleSort(v);
-		k.addVilleSort(new VilleV2("Mostghanem", "", 0, 0));
+				VilleV2 j=(new VilleV2("Mostghanem", "", 0, 0));
+		k.addVilleSort(j);
 		t = new VilleV2("Medeia", "", 0, 0);
 		k.addVilleSort(t);
 		s.addVilleSort(k);
@@ -75,14 +78,10 @@ public class Application {
         
 		
 		
-		Ville.afficheReseauArray();
-		
-		System.out.println(v.existeChemin(d));
-		
-		System.out.println();
-		System.out.println();
-		
-		//VilleV2.afficherListeVilles();
+		//VilleV2.afficheReseauArray();
+
+		System.out.println(v.exixsteCheminFinal(s));
+		VilleV2.afficherListeVilles();
 		
 		//System.out.println(VilleV2.rechListe( "Medeia"));
 		
