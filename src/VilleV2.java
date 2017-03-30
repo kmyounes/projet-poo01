@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class VilleV2 {
     public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>(5);
     ;
+    ArrayList<VilleV2> allVilles= new ArrayList<VilleV2>() ;
 
 
     //=====================Variables========================
@@ -129,20 +130,7 @@ public class VilleV2 {
 
     }
 
-    public static VilleV2 rechListe(String nom) {
 
-        VilleV2 temp;
-
-        for (VilleV2 v : VilleV2.villes) {
-            temp = v.recherche(nom);
-            if (temp != null)
-                return temp;
-
-        }
-
-        return null;
-
-    }
 
     private void initCouleur() {
 
@@ -426,9 +414,25 @@ public class VilleV2 {
         return false;
     }
 
+
+    public static VilleV2 rechListe(String nom) {
+
+        VilleV2 temp;
+
+        for (VilleV2 v : VilleV2.villes) {
+            for (VilleV2 a : v.ToutVoisins()){
+                if(a.getNom().compareToIgnoreCase(nom)==0) return a;
+            }
+        }
+
+        return null;
+
+}
+
+/*
     public VilleV2 recherche(String nom) {
 
-        if (this.getNom().equals(nom))
+       if (this.getNom().equals(nom))
             return this;
 
         VilleV2 temp;
@@ -441,7 +445,7 @@ public class VilleV2 {
 
         return null;
     }
-
+*/
     public boolean supprime() {
 
         if (VilleV2.villes.indexOf(this) == -1) {

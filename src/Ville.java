@@ -20,7 +20,8 @@ public class Ville {
 	private types typeV;
 	private String couleur;
 	private static int numero = 0;
-	public static ArrayList<Ville> villes = new ArrayList<Ville>(5);
+	public static ArrayList<Ville> villes = new ArrayList<Ville>();
+
 	
   //=====================Constructeurs========================
 	
@@ -34,7 +35,7 @@ public class Ville {
 		this.voisEnt = new ArrayList<Ville>();
 		this.voisSort = new ArrayList<Ville>();
 		numero ++;
-		
+
 		//Initialisation couleur
 		initCouleur();
 	}

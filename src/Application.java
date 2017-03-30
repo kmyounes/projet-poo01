@@ -81,7 +81,8 @@ public class Application {
 		//VilleV2.afficheReseauArray();
 
 		System.out.println(v.exixsteCheminFinal(s));
-		VilleV2.afficherListeVilles();
+		//VilleV2.afficherListeVilles();
+
 		
 		//System.out.println(VilleV2.rechListe( "Medeia"));
 		
