@@ -1,16 +1,12 @@
-import com.sun.media.sound.SoftTuning;
 
-import java.util.*;
-
+import java.util.ArrayList;
 
 public class Application {
-	
-	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//Stockage de villes dans un tableau dynamique
-		
+		// Stockage de villes dans un tableau dynamique
+
 		/*
         Ville v, s, k, t, b;
 		
@@ -43,68 +39,52 @@ public class Application {
 		Ville.villes.add(b);
 		
 		*/
-		
+
 		VilleV2 v, s, k, t, b, d;
-		
+
 		d = new VilleV2("Babez", "", 0, 0);
 		VilleV2.villes.add(d);
-		
-		v = new VilleV2("Alger", "", 0, 0, 1, VilleV2.types.ordinaire); 
+
+		v = new VilleV2("Alger", "", 0, 0, 1, VilleV2.types.ordinaire);
 		s = new VilleV2("Blida", "", 0, 0);
 		s.addVilleSort(new VilleV2("Oran", "", 0, 0));
 		k = new VilleV2("Telemcen", "", 0, 0);
 		k.addVilleSort(v);
-				VilleV2 j=(new VilleV2("Mostghanem", "", 0, 0));
+		VilleV2 j = (new VilleV2("Mostghanem", "", 0, 0));
 		k.addVilleSort(j);
 		t = new VilleV2("Medeia", "", 0, 0);
 		k.addVilleSort(t);
 		s.addVilleSort(k);
 		v.addVilleSort(s);
 		v.addVilleSort(new VilleV2("Boumerdess", "", 0, 0));
-		
+
 		v.addVilleSort(new VilleV2("Setif", "", 0, 0));
 		v.addVilleSort(new VilleV2("Tizi", "", 0, 0));
-		
-		
-		
+
 		VilleV2.villes.add(v);
-		
-		
-		b = new VilleV2("Bouira", "", 0, 0); 
+
+		b = new VilleV2("Bouira", "", 0, 0);
 		b.addVilleSort(new VilleV2("Setif", "", 0, 0));
 		b.addVilleSort(new VilleV2("Tizi", "", 0, 0));
 		VilleV2.villes.add(b);
-		
-        
-		
-		
-		//VilleV2.afficheReseauArray();
+
+		// VilleV2.afficheReseauArray();
 
 		v.afficheReseauVille();
 		System.out.println();
 		System.out.println();
-		for (ArrayList<VilleV2> i:VilleV2.Partitions()){
-			for(VilleV2 r: i){
+		for (ArrayList<VilleV2> i : VilleV2.Partitions()) {
+			for (VilleV2 r : i) {
 				System.out.println(r);
 			}
 			System.out.println("===============");
 		}
 
+		// VilleV2.afficherListeVilles();
 
-		//VilleV2.afficherListeVilles();
+		// System.out.println(VilleV2.rechListe( "Medeia"));
 
-		
-		//System.out.println(VilleV2.rechListe( "Medeia"));
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-	
+
 }
-	
 	

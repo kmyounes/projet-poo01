@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+
 public class Ville {
   //=====================Types=============================
   public enum types{
@@ -38,18 +40,32 @@ public class Ville {
 		initCouleur();
 	}
 	
-	public Ville(String nom, String wilaya, double superficie, int habitants, int nbFleur, types type) {
+	public Ville(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types type) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
-		this.nombreFleurs = nbFleur;
+		this.nombreFleurs = nombreFleurs;
 		this.typeV = type;
 		this.voisSort = new ArrayList<Ville>();
 		numero ++;
 		
 		//Initialisation couleur
 		initCouleur();
+	}
+	
+	public Ville(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeV,
+			String couleur) {
+		this.nom = nom;
+		this.wilaya = wilaya;
+		this.superficie = superficie;
+		this.nombreFleurs = nombreFleurs;
+		this.habitants = habitants;
+		this.typeV = typeV;
+		this.couleur = couleur;
+
+		
+		numero++;
 	}
 	
 	private void initCouleur(){
@@ -150,13 +166,6 @@ public class Ville {
 		this.typeV = typeV;
 	}
 	
-	
-	public void addVilleSort(Ville v){
-		this.voisSort.add(v);
-	}
-	
-
-	
 	public String toString() {
 		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
 				+ nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
@@ -164,17 +173,25 @@ public class Ville {
 		
 	//=====================Méthodes========================
 
-
-	
-
-	
-
-	// *Reworked by Legend 
-	public void couleurAffiche(){
-		
-		System.out.println("Ville de couleur: " + this.couleur);
-		
+	public void addVilleSort(Ville v) {
+		this.voisSort.add(v);
 	}
+
+	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
+	public boolean voisinSort(Ville v) {
+
+		return this.voisSort.contains(v);
+	}
+
+	// =====================
+
+	// *Reworked by Legend
+	public void couleurAffiche() {
+
+		System.out.println("Ville de couleur: " + this.couleur);
+
+	}
+	
 	
 	/*
 	 * I edited this method since we should look for the number of cities that we go to! 
@@ -252,14 +269,10 @@ public class Ville {
 			
 		}
 	
-	// *Made by Legend: Verifie si v appartient au liste des voisins Entrant
+	
 
 
-	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
-	public boolean voisinSort(Ville v){
-		
-		return this.voisSort.contains(v);
-	}
+	
 	
 	public boolean cheminExiste(Ville fin, Ville... chemin){
 		Ville tampon = this;
@@ -308,10 +321,24 @@ public class Ville {
 		
 		return null;
 	}
+	
+public static Ville rechListe( String nom){
+		
+		Ville temp;
+	
+		for(Ville v: Ville.villes){
+			temp = v.recherche(nom);
+			if(temp != null)
+				return temp;
+		
+		}
+	
+		return null;
+	
+	}
 
 	
 	public boolean supprime(){
-		
 		if(Ville.villes.indexOf(this) == -1){
 			System.out.println("Ville n'existe pas dans la liste!");
 			return false;
@@ -320,12 +347,65 @@ public class Ville {
 		Ville.villes.remove(this);
 		System.out.println("Operation terminee");
 		return true;
-		
-		
 	}
 	
+	public void modifieVille(){
+		int choice = 1;
+		Scanner in = new Scanner(System.in);
 	
-	public static void afficheReseauArray(){
+		do{
+			System.out.printf("What do you want to change?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Abort.%n Votre choix: ");
+			choice = in.nextInt();
+		
+			if(choice < 0 || choice > 4)
+				System.out.println("Erreur!! Please enter a valide choice!");
+		
+		}while(choice < 0 || choice > 4);
+		
+		switch(choice){
+		case 1: 
+			System.out.println("Enter the new name:  ");
+			this.setNom(in.next());
+			break;
+		case 2: 
+			System.out.println("Enter the new wilaya:  ");
+			this.setWilaya(in.next());
+			break;
+		case 3: 
+			System.out.println("Enter the new :  ");
+			this.setSuperficie(in.nextDouble());
+			break;
+		case 4: 
+			int type = 1;
+			do{
+				System.out.printf("Enter the new type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.%n Votre choix: ");
+				type = in.nextInt();
+				if(type < 1 || type >4)
+					System.out.println("Error!! Enter a valid type!");
+			}while(type < 1 || type >4);
+		
+			switch(type){
+			case 1:
+				this.setType("agricole");
+				break;
+			case 2:
+				this.setType("touristique");
+			break;
+			case 3:
+				this.setType("industrielle");
+				break;	
+			case 4:
+				this.setType("ordinaire");
+				break;
+			}
+			break;
+		}
+	
+		System.out.println("Done!");
+		in.close();
+	}
+	
+public static void afficheReseauArray(){
 		
 		for(Ville v: Ville.villes){
 			v.afficheReseauVille( 0, 0);
@@ -394,75 +474,5 @@ public class Ville {
 		System.out.println("Orange:  " + orange);
 	
 	}
-
-	public static Ville rechListe( String nom){
-		
-		Ville temp;
 	
-		for(Ville v: Ville.villes){
-			temp = v.recherche(nom);
-			if(temp != null)
-				return temp;
-		
-		}
-	
-		return null;
-	
-	}
-	public void modifieVille(){
-		int choice = 1;
-		Scanner in = new Scanner(System.in);
-	
-		do{
-			System.out.printf("What do you want to change?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Abort.%n Votre choix: ");
-			choice = in.nextInt();
-		
-			if(choice < 0 || choice > 4)
-				System.out.println("Erreur!! Please enter a valide choice!");
-		
-		}while(choice < 0 || choice > 4);
-		
-		switch(choice){
-		case 1: 
-			System.out.println("Enter the new name:  ");
-			this.setNom(in.next());
-			break;
-		case 2: 
-			System.out.println("Enter the new wilaya:  ");
-			this.setWilaya(in.next());
-			break;
-		case 3: 
-			System.out.println("Enter the new :  ");
-			this.setSuperficie(in.nextDouble());
-			break;
-		case 4: 
-			int type = 1;
-			do{
-				System.out.printf("Enter the new type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.%n Votre choix: ");
-				type = in.nextInt();
-				if(type < 1 || type >4)
-					System.out.println("Error!! Enter a valid type!");
-			}while(type < 1 || type >4);
-		
-			switch(type){
-			case 1:
-				this.setType("agricole");
-				break;
-			case 2:
-				this.setType("touristique");
-			break;
-			case 3:
-				this.setType("industrielle");
-				break;	
-			case 4:
-				this.setType("ordinaire");
-				break;
-			}
-			break;
-		}
-	
-		System.out.println("Done!");
-		in.close();
-	}
-
 }
