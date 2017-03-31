@@ -81,8 +81,16 @@ public class Application {
 		//VilleV2.afficheReseauArray();
 
 		v.afficheReseauVille();
-		
-		
+		System.out.println();
+		System.out.println();
+		for (ArrayList<VilleV2> i:VilleV2.Partitions()){
+			for(VilleV2 r: i){
+				System.out.println(r);
+			}
+			System.out.println("===============");
+		}
+
+
 		//VilleV2.afficherListeVilles();
 
 		

@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class VilleV2 {
     //La liste des 1ere villes
 	public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>(5);
-    
+
 	//La liste de toutes les villes
     private static ArrayList<VilleV2> allVilles= new ArrayList<VilleV2>() ;
 
@@ -21,12 +21,12 @@ public class VilleV2 {
     private types typeV;
     private String couleur;
 
-    
+
 
     //=====================Constructeurs========================
 
-    
-  
+
+
     public VilleV2(String nom, String wilaya, double superficie, int habitants) {
         this.nom = nom;
         this.wilaya = wilaya;
@@ -34,11 +34,11 @@ public class VilleV2 {
         this.habitants = habitants;
         this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
-        
+
         if(! VilleV2.allVilles.contains(this)){
         	VilleV2.allVilles.add(this);
         }
-        
+
         numero++;
 
         //Initialisation couleur
@@ -54,17 +54,17 @@ public class VilleV2 {
         this.typeV = type;
         this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
-        
+
         if(! VilleV2.allVilles.contains(this)){
         	VilleV2.allVilles.add(this);
         }
-        
+
         numero++;
 
         //Initialisation couleur
         initCouleur();
     }
-    
+
     public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeV, String couleur) {
 		this.nom = nom;
 		this.wilaya = wilaya;
@@ -73,17 +73,17 @@ public class VilleV2 {
 		this.habitants = habitants;
 		this.typeV = typeV;
 		this.couleur = couleur;
-		
+
 		this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
-        
+
         if(! VilleV2.allVilles.contains(this)){
         	VilleV2.allVilles.add(this);
         }
-        
+
         numero++;
 	}
-  
+
     private void initCouleur() {
 
         if (this.typeV == types.valueOf("ordinaire") && (this.nombreFleurs <= 1)) {
@@ -183,20 +183,20 @@ public class VilleV2 {
     public types getTypeV() {
         return typeV;
     }
-    
+
     public void setTypeV(types typeV) {
         this.typeV = typeV;
     }
-    
+
     public String toString() {
         return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
                 + nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
     }
-    
+
 
     //=====================Méthodes========================
 
-    
+
 
     public void addVilleSort(VilleV2 v) {
         this.voisSort.add(v);
@@ -206,49 +206,49 @@ public class VilleV2 {
     public void addVilleEnt(VilleV2 v) {
         this.voisEnt.add(v);
     }
-    
+
     public void afficheReseauVille() {
     	int lvl = 0;
         ArrayList<VilleV2> liste = new ArrayList<VilleV2>();
         ArrayList<VilleV2> tampon = new ArrayList<VilleV2>();
         VilleV2 tmp = this;
         tampon.add(this);
-        
+
         while(! tampon.isEmpty()){
         	tmp = tampon.get(0);
         	tampon.remove(0);
-        	
+
         	if(tmp != null){
         		//make a string of ' ' numSpaces time.
     			char[] chars = new char[ lvl * 5 ];
     			Arrays.fill(chars, ' ');
     			String result = new String(chars);
     			System.out.print(result);
-    			
+
     			if(liste.contains(tmp)){
             		System.out.print(" => " + tmp.getNom() + " # " );
             		System.out.println();
-            		
+
             		continue;
             	} else {
             		System.out.println(" => " + tmp.getNom());
             		liste.add(tmp);
             	}
-            	
+
             	if(! tmp.getVoisSort().isEmpty()){
             		tampon.addAll(0, tmp.getVoisSort());
             		tampon.add(tmp.getVoisSort().size(), null);
             		lvl++;
 
             	}
-    			
+
         	} else {
-            	
+
             	lvl = lvl > 0 ? lvl - 1 : 0;
             }
-        	
-        	
-        	
+
+
+
         } 
         /*
         for(VilleV2 v: liste){
@@ -364,7 +364,7 @@ public class VilleV2 {
         System.out.println();
     }
     */
-    
+
     public static void afficherListeVilles() {
         String vert = "", rouge = "", orange = "";
 
@@ -383,7 +383,7 @@ public class VilleV2 {
         System.out.println("Orange:  " + orange);
 
     }
-    
+
     // *Reworked by Legend
     public void couleurAffiche() {
 
@@ -502,8 +502,8 @@ public class VilleV2 {
         return false;
 
     }
-    
-    
+
+
     private ArrayList<VilleV2> ToutVoisins() {
 
         ArrayList<VilleV2> visite = new ArrayList<>();
@@ -537,9 +537,9 @@ public class VilleV2 {
     public static VilleV2 rechListe(String nom) {
 
         for (VilleV2 v : VilleV2.allVilles) {
-        	
+
             if(v.getNom().equalsIgnoreCase(nom)) return v;
-            
+
         }
 
         return null;
@@ -553,16 +553,16 @@ public class VilleV2 {
             return this;
 
         for (VilleV2 v : this.voisSort) {
-            
+
             if (v.getNom().equals(nom))
                 return v;
-            
+
         }
 
         return null;
     }
 
-    
+
     public boolean supprime() {
 
         if (VilleV2.villes.indexOf(this) == -1) {
@@ -632,10 +632,36 @@ public class VilleV2 {
         System.out.println("Done!");
         in.close();
     }
+    public static ArrayList<ArrayList<VilleV2>> Partitions(){
+        ArrayList<ArrayList<VilleV2>> partitions = new ArrayList<>();
+        ArrayList<VilleV2> tmp ;
+        ArrayList<VilleV2> tampon ;
+        for(VilleV2 v : VilleV2.allVilles) {
+            if (!VilleV2.existe(partitions,v)) {
+                tmp = new ArrayList<VilleV2>();
+                //tmp.add(v);
+                tampon = v.ToutVoisins();
+                for (VilleV2 element : tampon) {
+                    if (element.exixsteCheminFinal(v)) tmp.add(element);
+                }
 
+                partitions.add(tmp);
+            }
+            }
+
+        return partitions;
+    }
+    private static boolean existe(ArrayList<ArrayList<VilleV2>> a, VilleV2 b){
+        for(ArrayList<VilleV2> c : a){
+            if (c.contains(b)) return  true;
+        }
+        return false;
+    }
     //=====================Types=============================
     public enum types {
         agricole, touristique, industrielle, ordinaire
     }
+
+
 
 }
