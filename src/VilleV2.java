@@ -12,19 +12,19 @@ public class VilleV2 {
 
 	// =====================Variables========================
 
-	// La liste des 1ere villes
-	public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>(5);
+	// Liste contenant les villes principales
+	public static ArrayList<VilleV2> villes = new ArrayList<VilleV2>();
 
-	// La liste de toutes les villes
+	// Liste contenant toute les villes
 	private static ArrayList<VilleV2> allVilles = new ArrayList<VilleV2>();
 	
-	
-	private static int numero = 0;
+
+	private static int numero = 0; //numéro séquentiel de la ville
 	private String nom, wilaya, couleur;
 	private double superficie;
 	private int nombreFleurs, habitants;
-	private ArrayList<VilleV2> voisSort;
-	private types typeV;
+	private ArrayList<VilleV2> voisSort;   //voisins sortants
+	private types typeVille; //le type de la ville (agricoles, touristique....)
 	
 
 	// =====================Constructeurs========================
@@ -46,13 +46,13 @@ public class VilleV2 {
 		initCouleur();
 	}
 
-	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeV) {
+	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeVille) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
 		this.nombreFleurs = nombreFleurs;
-		this.typeV = typeV;
+		this.typeVille = typeVille;
 		this.voisSort = new ArrayList<VilleV2>();
 
 		if (!VilleV2.allVilles.contains(this)) {
@@ -65,14 +65,14 @@ public class VilleV2 {
 		initCouleur();
 	}
 
-	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeV,
+	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeVille,
 			String couleur) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.nombreFleurs = nombreFleurs;
 		this.habitants = habitants;
-		this.typeV = typeV;
+		this.typeVille = typeVille;
 		this.couleur = couleur;
 
 		this.voisSort = new ArrayList<VilleV2>();
@@ -83,13 +83,13 @@ public class VilleV2 {
 
 		numero++;
 	}
-
+       //Fonction qui initialise la couleur de la ville suivant le nombre de fleurs
 	private void initCouleur() {
 
-		if (this.typeV == types.valueOf("ordinaire") && (this.nombreFleurs <= 1)) {
+		if (this.typeVille == types.valueOf("ordinaire") && (this.nombreFleurs <= 1)) {
 			this.couleur = "Rouge";
-		} else if ((this.typeV == types.valueOf("ordinaire") && this.nombreFleurs > 1)
-				|| (this.typeV != types.valueOf("ordinaire") && this.nombreFleurs <= 1)) {
+		} else if ((this.typeVille == types.valueOf("ordinaire") && this.nombreFleurs > 1)
+				|| (this.typeVille != types.valueOf("ordinaire") && this.nombreFleurs <= 1)) {
 			// afficher en orange
 			this.couleur = "Orange";
 		} else {
@@ -113,7 +113,8 @@ public class VilleV2 {
 	}
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		if (!nom.isEmpty())		this.nom = nom;
+		else System.out.println("Erreur le nom est vide!");
 	}
 
 	public String getWilaya() {
@@ -121,7 +122,8 @@ public class VilleV2 {
 	}
 
 	public void setWilaya(String wilaya) {
-		this.wilaya = wilaya;
+		if(!wilaya.isEmpty())		this.wilaya = wilaya;
+		else System.out.println("Erreur Le champ wilaya est vide");
 	}
 
 	public double getSuperficie() {
@@ -129,7 +131,8 @@ public class VilleV2 {
 	}
 
 	public void setSuperficie(double superficie) {
-		this.superficie = superficie;
+		if(superficie>0) this.superficie = superficie;
+		else System.out.println("Erreur, la superficie ne peut etre négative");
 	}
 
 	public int getHabitants() {
@@ -137,15 +140,17 @@ public class VilleV2 {
 	}
 
 	public void setHabitants(int habitants) {
-		this.habitants = habitants;
+
+		if (habitants>0)this.habitants = habitants;
+		else System.out.println("Erreur, le nombre d'habitant ne peut etre négatif");
 	}
 
 	public String getType() {
-		return typeV.name();
+		return typeVille.name();
 	}
 
 	public void setType(String type) {
-		this.typeV = types.valueOf(type);
+		this.typeVille = types.valueOf(type);
 
 	}
 
@@ -154,7 +159,9 @@ public class VilleV2 {
 	}
 
 	public void setNombreFleurs(int nombreFleurs) {
-		this.nombreFleurs = nombreFleurs;
+
+		if(nombreFleurs >0 )this.nombreFleurs = nombreFleurs;
+		else System.out.println("Erreur le nombre de fleurs ");
 	}
 
 	public String getCouleur() {
@@ -173,35 +180,34 @@ public class VilleV2 {
 		this.voisSort = voisSort;
 	}
 
-	public types getTypeV() {
-		return typeV;
+	public types getTypeVille() {
+		return typeVille;
 	}
 
-	public void setTypeV(types typeV) {
-		this.typeV = typeV;
+	public void setTypeVille(types typeVille) {
+		this.typeVille = typeVille;
 	}
-
+    //===== méthode Tostring
 	public String toString() {
 		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
-				+ nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
+				+ nombreFleurs + ", habitants=" + habitants + ", typeVille=" + typeVille + ", couleur=" + couleur + "]";
 	}
 
 	// =====================Méthodes========================
 
-	public void addVilleSort(VilleV2 v) {
+	public void addVilleSort(VilleV2 v) {  //ajouter un voisin
 		this.voisSort.add(v);
 	}
 
-	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
-	public boolean voisinSort(VilleV2 v) {
+	public boolean voisinSort(VilleV2 v) {  // fonction qui vérifie si v est une ville voisine
 
 		return this.voisSort.contains(v);
 	}
 
 	// =====================
 
-	// *Reworked by Legend
-	public void couleurAffiche() {
+
+	public void couleurAffiche() {   //permet d'afficher la couleur de la ville courante
 
 		System.out.println("Ville de couleur: " + this.couleur);
 
@@ -212,7 +218,7 @@ public class VilleV2 {
 	 * we go to!
 	 *
 	 */
-	public boolean pasChemin() {
+	public boolean pasChemin() { // Fonction qui vérifie si la ville courante ne mene a aucune autre ville
 
 		for (VilleV2 v : this.voisSort) {
 			if (v != null)
@@ -221,7 +227,7 @@ public class VilleV2 {
 		return true;
 	}
 
-	public boolean existe3Chemin() {
+	public boolean existe3Chemin() { // Fonction qui vérifie si la ville actuelle a éxactement 3 voisins
 		int cpt = 0;
 
 		for (VilleV2 v : this.voisSort) {
@@ -236,8 +242,7 @@ public class VilleV2 {
 		return cpt == 3;
 	}
 
-	// *Reworked by Legend: Added villes between them
-	public boolean voisinDifferents() {
+	public boolean voisinDifferents() { // Fonction qui vérifie si les voisins directes sont différents entre eux
 
 		for (int i = 0; i < this.voisSort.size(); i++) {
 			for (int j = 0; j < this.voisSort.size(); i++) {
@@ -249,8 +254,7 @@ public class VilleV2 {
 		return true;
 	}
 
-	// *Reworked by Legend: Added villes sortant
-	public boolean plusFleurie() {
+	public boolean plusFleurie() { // Fonction qui vérifie si la ville actuelle est plus fleurie que les villes voisines
 
 		for (VilleV2 v : this.voisSort) {
 			if (this.getNombreFleurs() < v.getNombreFleurs())
@@ -262,9 +266,10 @@ public class VilleV2 {
 
 	// *Reworked by Legend: Use method equals with strings!
 	public boolean methodeBizzare() {
-		// if (this.typeV !=types.valueOf("ordinaire") &&
-		// this.couleur.equalsIgnoreCase("Vert")){
-		if (!this.typeV.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")) {
+		/*Fonction qui vérifie si la ville actuelle est de type Ordinaire et est de
+		 *couleur verte et toute ses  voisines sont de couleur rouge
+		 */
+		if (!this.typeVille.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")) {
 
 			for (VilleV2 v : this.voisSort) {
 				if (!v.getCouleur().equalsIgnoreCase("Rouge"))
@@ -277,7 +282,7 @@ public class VilleV2 {
 
 	}
 
-	public boolean cheminExiste(VilleV2 fin, VilleV2... chemin) {
+	public boolean cheminExiste(VilleV2 fin, VilleV2... chemin) { //Fonction qui vérifie l'existence d'un chemin
 		VilleV2 tampon = this;
 
 		for (int i = 0; i < chemin.length; i++) {
@@ -295,8 +300,7 @@ public class VilleV2 {
 
 	}
 
-	// Returns an ArrayList
-	private ArrayList<VilleV2> ToutVoisins() {
+	private ArrayList<VilleV2> ToutVoisins() { //Fonction qui retourne toute les villes accessibles depuis la ville courante
 
 		ArrayList<VilleV2> visite = new ArrayList<>();
 		ArrayList<VilleV2> restants = new ArrayList<>();
@@ -319,7 +323,7 @@ public class VilleV2 {
 
 	}
 
-	public boolean exixsteCheminFinal(VilleV2 fin) {
+	public boolean exixsteChemin(VilleV2 fin) { // Fonction qui vérifie l'existence d'un chemin vers une ville, depuis la ville courante
 
 		if (this.ToutVoisins().contains(fin))
 			return true;
@@ -500,7 +504,7 @@ public class VilleV2 {
 				// tmp.add(v);
 				tampon = v.ToutVoisins();
 				for (VilleV2 element : tampon) {
-					if (element.exixsteCheminFinal(v))
+					if (element.exixsteChemin(v))
 						tmp.add(element);
 				}
 

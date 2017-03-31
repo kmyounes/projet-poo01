@@ -6,23 +6,24 @@ public class Application {
 		// TODO Auto-generated method stub
 		// Stockage de villes dans un tableau dynamique
 
-		menuPrincipale();
+		menuPrincipal();
 
 		System.out.println("TERMINATED");
 
 	}
 
-	private static void menuPrincipale() {
+	private static void menuPrincipal() {
 		int choix = 1;
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 
-		System.out.println("\t\tHello!");
+		System.out.println("\t\t Gestion de villes");
+		System.out.println("\t\t Bonjour et binevenue!");
 
 		do {
-			System.out.println("\n\n\tWhat do you want to do:\n" + " 1) Add a city.\n"
-					+ " 2) Search for a city (do some actions)\n" + " 3) Show cities.\n"
-					+ " 4) Show cities list by color.\n" + " 5) Afficher les villes fortement connexe.\n" + " 0) Exit\n"
+			System.out.println("\n\n\tQue voulez-vous faire?:\n" + " 1) Ajouter une Ville.\n"
+					+ " 2) Rechercher une ville\n" + " 3) Afficher les villes.\n"
+					+ " 4) Afficher la liste des villes par couleur.\n" + " 5) Afficher les villes fortement liées.\n" + " 0) Quitter\n"
 					+ "Votre choix est: ");
 
 			choix = in.nextInt();
@@ -35,15 +36,15 @@ public class Application {
 			case 2:
 				String nom;
 				VilleV2 v;
-				System.out.println("Enter the city's name: ");
+				System.out.println("Entrez le nom de la ville: ");
 				nom = in.next();
 
 				v = VilleV2.rechListe(nom);
 
 				if (v != null) {
-					System.out.println("Found city:\n " + v);
+					System.out.println("La ville a été trouvée :\n " + v);
 				} else {
-					System.out.println("\n\n\tCity with name: \"" + nom + "\" does not exist!!");
+					System.out.println("\n\n\t La ville sous le nom de : \"" + nom + "\" n'existe pas!!");
 				}
 
 				break;
@@ -55,7 +56,7 @@ public class Application {
 				break;
 			case 5:
 				if(VilleV2.villes.isEmpty())
-					System.out.println("\n\nPas de villes!!");
+					System.out.println("\n\nAucune ville!!");
 				else
 					VilleV2.Partitions();
 				break;
