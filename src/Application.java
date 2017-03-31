@@ -1,5 +1,4 @@
-
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Application {
 
@@ -7,84 +6,62 @@ public class Application {
 		// TODO Auto-generated method stub
 		// Stockage de villes dans un tableau dynamique
 
-		/*
-        Ville v, s, k, t, b;
-		
-		v = new Ville("Babez", "", 0, 0);
-		Ville.villes.add(v);
-		
-		v = new Ville("Alger", "", 0, 0, 1, Ville.types.ordinaire); 
-		s = new Ville("Blida", "", 0, 0);
-		s.addVilleSort(new Ville("Oran", "", 0, 0));
-		k = new Ville("Telemcen", "", 0, 0);
-		
-		k.addVilleSort(new Ville("Mostghanem", "", 0, 0));
-		t = new Ville("Medeia", "", 0, 0);
-		k.addVilleSort(t);
-		s.addVilleSort(k);
-		v.addVilleSort(s);
-		v.addVilleSort(new Ville("Boumerdess", "", 0, 0));
-		
-		v.addVilleSort(new Ville("Setif", "", 0, 0));
-		v.addVilleSort(new Ville("Tizi", "", 0, 0));
-		
-		
-		
-		Ville.villes.add(v);
-		
-		
-		b = new Ville("Bouira", "", 0, 0); 
-		b.addVilleSort(new Ville("Setif", "", 0, 0));
-		b.addVilleSort(new Ville("Tizi", "", 0, 0));
-		Ville.villes.add(b);
-		
-		*/
+		menuPrincipale();
 
-		VilleV2 v, s, k, t, b, d;
-
-		d = new VilleV2("Babez", "", 0, 0);
-		VilleV2.villes.add(d);
-
-		v = new VilleV2("Alger", "", 0, 0, 1, VilleV2.types.ordinaire);
-		s = new VilleV2("Blida", "", 0, 0);
-		s.addVilleSort(new VilleV2("Oran", "", 0, 0));
-		k = new VilleV2("Telemcen", "", 0, 0);
-		k.addVilleSort(v);
-		VilleV2 j = (new VilleV2("Mostghanem", "", 0, 0));
-		k.addVilleSort(j);
-		t = new VilleV2("Medeia", "", 0, 0);
-		k.addVilleSort(t);
-		s.addVilleSort(k);
-		v.addVilleSort(s);
-		v.addVilleSort(new VilleV2("Boumerdess", "", 0, 0));
-
-		v.addVilleSort(new VilleV2("Setif", "", 0, 0));
-		v.addVilleSort(new VilleV2("Tizi", "", 0, 0));
-
-		VilleV2.villes.add(v);
-
-		b = new VilleV2("Bouira", "", 0, 0);
-		b.addVilleSort(new VilleV2("Setif", "", 0, 0));
-		b.addVilleSort(new VilleV2("Tizi", "", 0, 0));
-		VilleV2.villes.add(b);
-
-		// VilleV2.afficheReseauArray();
-
-		v.afficheReseauVille();
-		System.out.println();
-		System.out.println();
-		for (ArrayList<VilleV2> i : VilleV2.Partitions()) {
-			for (VilleV2 r : i) {
-				System.out.println(r);
-			}
-			System.out.println("===============");
-		}
-
-		// VilleV2.afficherListeVilles();
-
-		// System.out.println(VilleV2.rechListe( "Medeia"));
+		System.out.println("TERMINATED");
 
 	}
 
+	private static void menuPrincipale() {
+		int choix = 1;
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+
+		System.out.println("\t\tHello!");
+
+		do {
+			System.out.println("\n\n\tWhat do you want to do:\n" + " 1) Add a city.\n"
+					+ " 2) Search for a city (do some actions)\n" + " 3) Show cities.\n"
+					+ " 4) Show cities list by color.\n" + " 5) Afficher les villes fortement connexe.\n" + " 0) Exit\n"
+					+ "Votre choix est: ");
+
+			choix = in.nextInt();
+
+			switch (choix) {
+			case 1:
+				VilleV2.ajouterVilleV2();
+				System.out.println("\n\n");
+				break;
+			case 2:
+				String nom;
+				VilleV2 v;
+				System.out.println("Enter the city's name: ");
+				nom = in.next();
+
+				v = VilleV2.rechListe(nom);
+
+				if (v != null) {
+					System.out.println("Found city:\n " + v);
+				} else {
+					System.out.println("\n\n\tCity with name: \"" + nom + "\" does not exist!!");
+				}
+
+				break;
+			case 3:
+				VilleV2.afficheReseau();
+				break;
+			case 4:
+				VilleV2.afficherListeVilles();
+				break;
+			case 5:
+				if(VilleV2.villes.isEmpty())
+					System.out.println("\n\nPas de villes!!");
+				else
+					VilleV2.Partitions();
+				break;
+			}
+
+		} while (choix != 0);
+	}
+
 }
-	

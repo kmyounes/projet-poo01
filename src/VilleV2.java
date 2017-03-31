@@ -17,13 +17,15 @@ public class VilleV2 {
 
 	// La liste de toutes les villes
 	private static ArrayList<VilleV2> allVilles = new ArrayList<VilleV2>();
+	
+	
 	private static int numero = 0;
-	private String nom, wilaya;
+	private String nom, wilaya, couleur;
 	private double superficie;
 	private int nombreFleurs, habitants;
 	private ArrayList<VilleV2> voisSort;
 	private types typeV;
-	private String couleur;
+	
 
 	// =====================Constructeurs========================
 
@@ -44,13 +46,13 @@ public class VilleV2 {
 		initCouleur();
 	}
 
-	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types type) {
+	public VilleV2(String nom, String wilaya, double superficie, int habitants, int nombreFleurs, types typeV) {
 		this.nom = nom;
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
 		this.nombreFleurs = nombreFleurs;
-		this.typeV = type;
+		this.typeV = typeV;
 		this.voisSort = new ArrayList<VilleV2>();
 
 		if (!VilleV2.allVilles.contains(this)) {
@@ -397,7 +399,7 @@ public class VilleV2 {
 			int type = 1;
 			do {
 				System.out.printf(
-						"Enter the new type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.%n Votre choix: ");
+						"Enter the new type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.\n Votre choix: ");
 				type = in.nextInt();
 				if (type < 1 || type > 4)
 					System.out.println("Error!! Enter a valid type!");
@@ -462,6 +464,12 @@ public class VilleV2 {
 			}
 		}
 	}
+	
+	public static void afficheReseau(){
+		for(VilleV2 v : VilleV2.villes){
+			v.afficheReseauVille();
+		}
+	}
 
 	public static void afficherListeVilles() {
 		String vert = "", rouge = "", orange = "";
@@ -509,6 +517,81 @@ public class VilleV2 {
 				return true;
 		}
 		return false;
+	}
+	
+	//==================================================
+	
+	//Add a new city
+	
+	public static VilleV2 ajouterVilleV2(){
+		VilleV2 v;
+		String nom = "", wilaya = "";
+		double superficie = 0;
+		int nombreFleurs = 0, habitants = 0;
+		types typeV = types.agricole;
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
+        int choix = 1;
+		
+		
+			System.out.println("Donner le nom de la ville");
+			nom = in.next();
+		
+		
+		
+			System.out.println("Donner la wilaya de la ville");
+			wilaya = in.next();
+		
+		
+		do {
+			System.out.println("Donner la superficie de la ville");
+			superficie = in.nextDouble();
+			if (superficie <= 0)
+				System.out.println("Erreur!! valeur incorect!");
+		} while(superficie <= 0 );
+		
+		do {
+			System.out.println("Donner le nombre de fleur(s) de la ville");
+			nombreFleurs = in.nextInt();
+			if (nombreFleurs <= 0)
+				System.out.println("Erreur!! valeur incorect!");
+		} while(nombreFleurs <=0 );
+		
+		do {
+			System.out.println("Donner le nombre habitants de la ville");
+			habitants = in.nextInt();
+			if (habitants <= 0)
+				System.out.println("Erreur!! valeur incorect!");
+		} while(habitants <=0 );
+
+		do {
+			System.out.println("Donner le type de la ville\n"
+					+ " 1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.");
+			choix = in.nextInt();
+
+			switch (choix) {
+			case 1:
+				typeV = types.agricole;
+				break;
+			case 2:
+				typeV = types.touristique;
+				break;
+			case 3:
+				typeV = types.industrielle;
+				break;
+			case 4:
+				typeV = types.ordinaire;
+				break;
+			}
+
+			if (choix < 1 || choix > 4)
+				System.out.println("Erreur!! choix incorect!");
+		} while (choix < 1 || choix > 4);
+		
+		v = new VilleV2( nom,  wilaya,  superficie,  habitants,  nombreFleurs,  typeV);
+		System.out.println("\n" + "City Created:\n  " + v);
+		
+		return v;
 	}
 
 }
