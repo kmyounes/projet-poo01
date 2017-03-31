@@ -14,8 +14,7 @@ public class Ville {
 	
 	private String nom,wilaya;
 	private double superficie;
-	private int nombreFleurs, habitants;  
-	private ArrayList<Ville> voisEnt;
+	private int nombreFleurs, habitants;
 	private ArrayList<Ville> voisSort;
 	private types typeV;
 	private String couleur;
@@ -32,7 +31,6 @@ public class Ville {
 		this.wilaya = wilaya;
 		this.superficie = superficie;
 		this.habitants = habitants;
-		this.voisEnt = new ArrayList<Ville>();
 		this.voisSort = new ArrayList<Ville>();
 		numero ++;
 
@@ -47,7 +45,6 @@ public class Ville {
 		this.habitants = habitants;
 		this.nombreFleurs = nbFleur;
 		this.typeV = type;
-		this.voisEnt = new ArrayList<Ville>();
 		this.voisSort = new ArrayList<Ville>();
 		numero ++;
 		
@@ -136,15 +133,7 @@ public class Ville {
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
 	}
-	
-	public ArrayList<Ville> getVoisEnt() {
-		return voisEnt;
-	}
-	
-	public void setVoisEnt(ArrayList<Ville> voisEnt) {
-		this.voisEnt = voisEnt;
-	}
-	
+
 	public ArrayList<Ville> getVoisSort() {
 		return voisSort;
 	}
@@ -166,10 +155,7 @@ public class Ville {
 		this.voisSort.add(v);
 	}
 	
-	public void addVilleEnt(Ville v){
-		this.voisEnt.add(v);
-	}
-	
+
 	
 	public String toString() {
 		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
@@ -228,12 +214,7 @@ public class Ville {
 			}
 		}
 		
-		for(int i = 0; i < this.voisEnt.size(); i++){
-			for(int j = 0; j < this.voisEnt.size(); i++){
-				if(this.voisEnt.get(i).equals(this.voisEnt.get(j)))
-					return false;
-			}
-		}
+
 		
 		
 		return true;
@@ -258,11 +239,7 @@ public class Ville {
 			
 			
 			
-			for(Ville v: this.voisEnt){
-				if( ! v.getCouleur().equalsIgnoreCase("Rouge"))
-					return false;
-			}
-			for(Ville v : this.voisSort){				
+			for(Ville v : this.voisSort){
 				if( ! v.getCouleur().equalsIgnoreCase("Rouge"))
 					return false;
 				}
@@ -276,10 +253,7 @@ public class Ville {
 		}
 	
 	// *Made by Legend: Verifie si v appartient au liste des voisins Entrant
-	public boolean voisinEnt(Ville v){
-		
-		return this.voisEnt.contains(v);
-	}
+
 
 	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
 	public boolean voisinSort(Ville v){

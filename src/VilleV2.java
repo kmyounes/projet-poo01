@@ -16,7 +16,6 @@ public class VilleV2 {
     private String nom, wilaya;
     private double superficie;
     private int nombreFleurs, habitants;
-    private ArrayList<VilleV2> voisEnt;
     private ArrayList<VilleV2> voisSort;
     private types typeV;
     private String couleur;
@@ -32,7 +31,6 @@ public class VilleV2 {
         this.wilaya = wilaya;
         this.superficie = superficie;
         this.habitants = habitants;
-        this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
 
         if(! VilleV2.allVilles.contains(this)){
@@ -52,7 +50,6 @@ public class VilleV2 {
         this.habitants = habitants;
         this.nombreFleurs = nombreFleurs;
         this.typeV = type;
-        this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
 
         if(! VilleV2.allVilles.contains(this)){
@@ -74,7 +71,6 @@ public class VilleV2 {
 		this.typeV = typeV;
 		this.couleur = couleur;
 
-		this.voisEnt = new ArrayList<VilleV2>();
         this.voisSort = new ArrayList<VilleV2>();
 
         if(! VilleV2.allVilles.contains(this)){
@@ -164,14 +160,6 @@ public class VilleV2 {
         this.couleur = couleur;
     }
 
-    public ArrayList<VilleV2> getVoisEnt() {
-        return voisEnt;
-    }
-
-    public void setVoisEnt(ArrayList<VilleV2> voisEnt) {
-        this.voisEnt = voisEnt;
-    }
-
     public ArrayList<VilleV2> getVoisSort() {
         return voisSort;
     }
@@ -200,12 +188,8 @@ public class VilleV2 {
 
     public void addVilleSort(VilleV2 v) {
         this.voisSort.add(v);
-        v.addVilleEnt(this);
     }
 
-    public void addVilleEnt(VilleV2 v) {
-        this.voisEnt.add(v);
-    }
 
     public void afficheReseauVille() {
     	int lvl = 0;
@@ -429,12 +413,6 @@ public class VilleV2 {
             }
         }
 
-        for (int i = 0; i < this.voisEnt.size(); i++) {
-            for (int j = 0; j < this.voisEnt.size(); i++) {
-                if (this.voisEnt.get(i).equals(this.voisEnt.get(j)))
-                    return false;
-            }
-        }
 
 
         return true;
@@ -457,10 +435,6 @@ public class VilleV2 {
         if (!this.typeV.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")) {
 
 
-            for (VilleV2 v : this.voisEnt) {
-                if (!v.getCouleur().equalsIgnoreCase("Rouge"))
-                    return false;
-            }
             for (VilleV2 v : this.voisSort) {
                 if (!v.getCouleur().equalsIgnoreCase("Rouge"))
                     return false;
@@ -473,11 +447,6 @@ public class VilleV2 {
 
     }
 
-    // *Made by Legend: Verifie si v appartient au liste des voisins Entrant
-    public boolean voisinEnt(VilleV2 v) {
-
-        return this.voisEnt.contains(v);
-    }
 
     // *Made by Legend: Verifie si v appartient au liste des voisins Sortant
     public boolean voisinSort(VilleV2 v) {
