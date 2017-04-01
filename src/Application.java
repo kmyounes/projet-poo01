@@ -60,6 +60,14 @@ public class Application {
                     else
                         VilleV2.Partitions();
                     break;
+
+            }
+            System.out.println("Veuillez appuyer sur une touche pour contirnuer");
+            in.nextLine();
+            in.nextLine();
+            for (int i = 0; i <50 ; i++) {
+                System.out.println();
+
             }
 
         } while (choix != 0);
