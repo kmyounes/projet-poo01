@@ -625,25 +625,19 @@ public class VilleV2 {
 		
 		//System.out.println("\n" + "Ville créee:\n  " + v);
 		
-		/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		 * TRANSLATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		 */
-		
-		//If there are no cities we automatically add to the main list
-		if(VilleV2.villes.isEmpty()){
-			System.out.println("City automatically added to principale cities list.");
+
+
+		if(VilleV2.villes.isEmpty()){ //If there are no cities we automatically add to the main list
+			System.out.println("La ville a été ajoutée comme ville principale.");
     		VilleV2.villes.add(v);
 			return v;
 		}
 		
 		//if the list isn't empty we ask where to put the newly created city
 		do{
-			System.out.println("Where do you want to add this city:\n"
-					+ "1) Principale cities list.\n"
-					+ "2) After another city.");
+			System.out.println("Dans quelle Liste voulez-vous ajouter cette ville:\n"
+					+ "1) Liste des villes principales.\n"
+					+ "2) Comme voisine d'une autre ville.");
 			choix = in.nextInt();
 			
 			if(choix<1 || choix>2)
@@ -660,7 +654,7 @@ public class VilleV2 {
 			
 			
 			do{
-				System.out.println("Enter the name of the parent city: ");
+				System.out.println("Entrez le nom de la ville précédente : ");
 				nom = in.next();
 				
 				tmp = VilleV2.rechListe(nom);
@@ -673,7 +667,7 @@ public class VilleV2 {
 			}while(stop != 0 && tmp == null);
         	
         	if( tmp == null ){
-        		System.out.println("City automatically added to principale cities list.");
+        		System.out.println("La ville a été automatiquement ajouté a la liste principale.");
         		VilleV2.villes.add(v);
         	} else {
         		tmp.addVilleSort(v);

@@ -60,11 +60,11 @@ public class Application {
                         	System.out.println("La ville a été trouvée :\n " + v); 
                             		
                         	do{
-                        		System.out.println("\n\n What do you want to do:\n"
-                            		+ "1) Change the city's informations.\n"
-                            		+ "2) Add another city as neibor\n"
-                            		+ "3) Add as neibor to another city\n"
-                            		+ "0) Exit");
+                        		System.out.println("\n\n Que voulez vous faire?:\n"
+                            		+ "1) Changer les informations de la ville.\n"
+                            		+ "2) Ajouter une autre ville comme voisine\n"
+                            		+ "3) Ajouter commme voisine d'une autre ville\n"
+                            		+ "0) Quitter");
                         		
                         		menu = in.nextInt();
                         		
