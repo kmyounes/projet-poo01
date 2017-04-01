@@ -68,18 +68,15 @@ public class Ville {
 		
 		numero++;
 	}
-	
+	//Fonction qui initialise la couleur de la ville suivant le nombre de fleurs
 	private void initCouleur(){
-		
 		if(this.typeV==types.valueOf("ordinaire") &&( this.nombreFleurs<=1)){
 			this.couleur="Rouge";
 		}
 		else if ((this.typeV==types.valueOf("ordinaire") && this.nombreFleurs>1) || (this.typeV!=types.valueOf("ordinaire") && this.nombreFleurs<=1 ) ){
-     		//afficher en orange	
 			this.couleur="Orange";
 		}
 		else {
-			//afficher en vert
 			this.couleur="Vert";
 		}
 	}
@@ -166,7 +163,8 @@ public class Ville {
 	public void setTypeV(types typeV) {
 		this.typeV = typeV;
 	}
-	
+
+	//===== méthode Tostring
 	public String toString() {
 		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
 				+ nombreFleurs + ", habitants=" + habitants + ", typeV=" + typeV + ", couleur=" + couleur + "]";
@@ -178,26 +176,20 @@ public class Ville {
 		this.voisSort.add(v);
 	}
 
-	// *Made by Legend: Verifie si v appartient au liste des voisins Sortant
-	public boolean voisinSort(Ville v) {
+	public boolean voisinSort(Ville v) {// fonction qui vérifie si v est une ville voisine
 
 		return this.voisSort.contains(v);
 	}
 
 	// =====================
 
-	// *Reworked by Legend
-	public void couleurAffiche() {
+	public void couleurAffiche() {   //permet d'afficher la couleur de la ville courante
 
 		System.out.println("Ville de couleur: " + this.couleur);
 
 	}
 	
 	
-	/*
-	 * I edited this method since we should look for the number of cities that we go to! 
-	 * 
-	 */
 	public boolean pasChemin(){
 		
 		for(Ville v : this.voisSort){

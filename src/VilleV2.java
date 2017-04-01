@@ -90,10 +90,8 @@ public class VilleV2 {
 			this.couleur = "Rouge";
 		} else if ((this.typeVille == types.valueOf("ordinaire") && this.nombreFleurs > 1)
 				|| (this.typeVille != types.valueOf("ordinaire") && this.nombreFleurs <= 1)) {
-			// afficher en orange
 			this.couleur = "Orange";
 		} else {
-			// afficher en vert
 			this.couleur = "Vert";
 		}
 	}
@@ -213,11 +211,6 @@ public class VilleV2 {
 
 	}
 
-	/*
-	 * I edited this method since we should look for the number of cities that
-	 * we go to!
-	 *
-	 */
 	public boolean pasChemin() { // Fonction qui vérifie si la ville courante ne mene a aucune autre ville
 
 		for (VilleV2 v : this.voisSort) {
