@@ -349,10 +349,10 @@ public class VilleV2 {
 	}
 
 
-	public boolean supprime() { //suppression d'une ville
+	public boolean supprime() { //suppression d'une ville de la liste principale
 
-		if (VilleV2.villes.indexOf(this) == -1) {
-			System.out.println("Ville n'existe pas dans la liste!");
+		if (! VilleV2.villes.contains(this)) {
+		    System.out.println("Ville n'existe pas dans la liste!");
 			return false;
 		}
 
@@ -363,17 +363,18 @@ public class VilleV2 {
 
 	public void modifieVille() { //fonction de modification d'une ville donnée
 		int choice = 1;
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 
 		do {
 			System.out.printf(
-					"Que voulez vous changer?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Abort.%n Votre choix: ");
+					"Que voulez vous changer?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 5) Nombre de fleurs 6) Nombre d'habitants 0) Abort.%n Votre choix: ");
 			choice = in.nextInt();
 
-			if (choice < 0 || choice > 4)
+			if (choice < 0 || choice > 6)
 				System.out.println("Erreur!! Veuillez entrer un choix valide!");
 
-		} while (choice < 0 || choice > 4);
+		} while (choice < 0 || choice > 6);
 
 		switch (choice) {
 		case 1:
@@ -385,8 +386,18 @@ public class VilleV2 {
 			this.setWilaya(in.next());
 			break;
 		case 3:
-			System.out.println("Entrez la nouvelle superficie:  ");
-			this.setSuperficie(in.nextDouble());
+			double sup = 0;
+			
+			do{
+				System.out.println("Entrez la nouvelle superficie:  ");
+				sup = in.nextInt();
+				
+				if(sup<=0){
+					System.out.println("Erreur!! Nombre negatif ou 0 interdit!");
+				}
+			}while(sup <= 0);
+			
+			this.setSuperficie(sup);
 			break;
 		case 4:
 			int type = 1;
@@ -413,9 +424,38 @@ public class VilleV2 {
 				break;
 			}
 			break;
+		case 5:
+			//Fleurs
+			int nbrFlrs = 0;
+			do{
+				System.out.println("Donner le nouveau nombre de fleurs");
+				nbrFlrs = in.nextInt();
+				
+				if(nbrFlrs<0){
+					System.out.println("Erreur!! Nombre negatif interdit!");
+				}
+			}while(nbrFlrs<0);
+			
+			this.setNombreFleurs(nbrFlrs);
+			
+			break;
+		case 6:
+			//Habitants
+			int nbrHabit = 0;
+			do{
+				System.out.println("Donner le nouveau nombre d' habitants");
+				nbrHabit = in.nextInt();
+				
+				if(nbrHabit<=0){
+					System.out.println("Erreur!! Nombre negatif ou 0 interdit!");
+				}
+			}while(nbrHabit<=0);
+			
+			this.setHabitants(nbrHabit);
+			break;
 		}
 		System.out.println("Done!");
-		in.close();
+		
 	}
 
 	private void afficheReseauVille() { //fonction pour afficher le réseau de villes
@@ -582,7 +622,66 @@ public class VilleV2 {
 		} while (choix < 1 || choix > 4);
 		
 		v = new VilleV2( nom,  wilaya,  superficie,  habitants,  nombreFleurs,  typeV);
-		System.out.println("\n" + "Ville créee:\n  " + v);
+		
+		//System.out.println("\n" + "Ville créee:\n  " + v);
+		
+		/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 * TRANSLATE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		 */
+		
+		//If there are no cities we automatically add to the main list
+		if(VilleV2.villes.isEmpty()){
+			System.out.println("City automatically added to principale cities list.");
+    		VilleV2.villes.add(v);
+			return v;
+		}
+		
+		//if the list isn't empty we ask where to put the newly created city
+		do{
+			System.out.println("Where do you want to add this city:\n"
+					+ "1) Principale cities list.\n"
+					+ "2) After another city.");
+			choix = in.nextInt();
+			
+			if(choix<1 || choix>2)
+				System.out.println("Erreur!! choix incorect!");
+		}while(choix<1 || choix>2);
+		
+		switch(choix){
+		case 1:
+			VilleV2.villes.add(v);
+			break;
+        case 2:
+			VilleV2 tmp = null;
+        	int stop = 4;
+			
+			
+			do{
+				System.out.println("Enter the name of the parent city: ");
+				nom = in.next();
+				
+				tmp = VilleV2.rechListe(nom);
+				
+				if(tmp == null){
+					System.out.println("\n\n\t La ville sous le nom de : \"" + nom + "\" n'existe pas!!\n"
+							+ "Ressayer? :  0) Non. Autre) Oui.");
+					stop = in.nextInt();
+				}
+			}while(stop != 0 && tmp == null);
+        	
+        	if( tmp == null ){
+        		System.out.println("City automatically added to principale cities list.");
+        		VilleV2.villes.add(v);
+        	} else {
+        		tmp.addVilleSort(v);
+        	}
+			
+			break;
+		}
+		
 		
 		return v;
 	}
