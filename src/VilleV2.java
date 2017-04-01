@@ -293,10 +293,8 @@ public class VilleV2 {
 			}
 		}
 
-		if (tampon.voisinSort(fin))
-			return true;
+		return  (tampon.voisinSort(fin));
 
-		return false;
 
 	}
 
@@ -325,9 +323,7 @@ public class VilleV2 {
 
 	public boolean exixsteChemin(VilleV2 fin) { // Fonction qui vérifie l'existence d'un chemin vers une ville, depuis la ville courante
 
-		if (this.ToutVoisins().contains(fin))
-			return true;
-		return false;
+		return (this.ToutVoisins().contains(fin));
 	}
 
 	public static VilleV2 rechListe(String nom) {
@@ -359,8 +355,8 @@ public class VilleV2 {
 		return null;
 	}
 
-	// This one????
-	public boolean supprime() {
+
+	public boolean supprime() { //suppression d'une ville
 
 		if (VilleV2.villes.indexOf(this) == -1) {
 			System.out.println("Ville n'existe pas dans la liste!");
@@ -372,41 +368,41 @@ public class VilleV2 {
 		return true;
 	}
 
-	public void modifieVille() {
+	public void modifieVille() { //fonction de modification d'une ville donnée
 		int choice = 1;
 		Scanner in = new Scanner(System.in);
 
 		do {
 			System.out.printf(
-					"What do you want to change?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Abort.%n Votre choix: ");
+					"Que voulez vous changer?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Abort.%n Votre choix: ");
 			choice = in.nextInt();
 
 			if (choice < 0 || choice > 4)
-				System.out.println("Erreur!! Please enter a valide choice!");
+				System.out.println("Erreur!! Veuillez entrer un choix valide!");
 
 		} while (choice < 0 || choice > 4);
 
 		switch (choice) {
 		case 1:
-			System.out.println("Enter the new name:  ");
+			System.out.println("Entez le nouveau nom:  ");
 			this.setNom(in.next());
 			break;
 		case 2:
-			System.out.println("Enter the new wilaya:  ");
+			System.out.println("Entrez la nouvelle wilaya:  ");
 			this.setWilaya(in.next());
 			break;
 		case 3:
-			System.out.println("Enter the new :  ");
+			System.out.println("Entrez la nouvelle superficie:  ");
 			this.setSuperficie(in.nextDouble());
 			break;
 		case 4:
 			int type = 1;
 			do {
 				System.out.printf(
-						"Enter the new type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.\n Votre choix: ");
+						"Entrez le nouveau type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.\n Votre choix: ");
 				type = in.nextInt();
 				if (type < 1 || type > 4)
-					System.out.println("Error!! Enter a valid type!");
+					System.out.println("Erreur, le type entré n'est pas valide!");
 			} while (type < 1 || type > 4);
 
 			switch (type) {
@@ -429,7 +425,7 @@ public class VilleV2 {
 		in.close();
 	}
 
-	public void afficheReseauVille() {
+	private void afficheReseauVille() { //fonction pour afficher le réseau de villes
 		int lvl = 0;
 		ArrayList<VilleV2> liste = new ArrayList<VilleV2>();
 		ArrayList<VilleV2> tampon = new ArrayList<VilleV2>();
@@ -469,13 +465,13 @@ public class VilleV2 {
 		}
 	}
 	
-	public static void afficheReseau(){
+	public static void afficheReseau(){ //fonction d'affichage de reseau de villes
 		for(VilleV2 v : VilleV2.villes){
 			v.afficheReseauVille();
 		}
 	}
 
-	public static void afficherListeVilles() {
+	public static void afficherListeVilles() {  //Fonction qui affiche les villes suivant leurs couleurs
 		String vert = "", rouge = "", orange = "";
 
 		for (VilleV2 v : VilleV2.allVilles) {
@@ -494,7 +490,7 @@ public class VilleV2 {
 
 	}
 
-	public static ArrayList<ArrayList<VilleV2>> Partitions() {
+	public static ArrayList<ArrayList<VilleV2>> Partitions() { // Fonction qui partitionne les villes en villes fotement liées
 		ArrayList<ArrayList<VilleV2>> partitions = new ArrayList<>();
 		ArrayList<VilleV2> tmp;
 		ArrayList<VilleV2> tampon;
@@ -515,7 +511,7 @@ public class VilleV2 {
 		return partitions;
 	}
 
-	private static boolean existe(ArrayList<ArrayList<VilleV2>> a, VilleV2 b) {
+	private static boolean existe(ArrayList<ArrayList<VilleV2>> a, VilleV2 b) { //Fonction qui vérifie l'existence d'une ville dans un ArrayList<ArrayList<Ville>>
 		for (ArrayList<VilleV2> c : a) {
 			if (c.contains(b))
 				return true;
@@ -525,8 +521,8 @@ public class VilleV2 {
 	
 	//==================================================
 	
-	//Add a new city
-	
+
+    //Ajout d'une ville
 	public static VilleV2 ajouterVilleV2(){
 		VilleV2 v;
 		String nom = "", wilaya = "";
@@ -538,38 +534,38 @@ public class VilleV2 {
         int choix = 1;
 		
 		
-			System.out.println("Donner le nom de la ville");
+			System.out.println("Entrez le nom de la ville");
 			nom = in.next();
 		
 		
 		
-			System.out.println("Donner la wilaya de la ville");
+			System.out.println("Entrez la wilaya de la ville");
 			wilaya = in.next();
 		
 		
 		do {
-			System.out.println("Donner la superficie de la ville");
+			System.out.println("Entrez la superficie de la ville");
 			superficie = in.nextDouble();
 			if (superficie <= 0)
-				System.out.println("Erreur!! valeur incorect!");
+				System.out.println("Erreur!! la de la supèrficie est  incorecte!");
 		} while(superficie <= 0 );
 		
 		do {
-			System.out.println("Donner le nombre de fleur(s) de la ville");
+			System.out.println("Donnez le nombre de fleur(s) de la ville");
 			nombreFleurs = in.nextInt();
 			if (nombreFleurs <= 0)
-				System.out.println("Erreur!! valeur incorect!");
+				System.out.println("Erreur!! Le nombre de fleur est  incorect!");
 		} while(nombreFleurs <=0 );
 		
 		do {
-			System.out.println("Donner le nombre habitants de la ville");
+			System.out.println("Donnez le nombre habitants de la ville");
 			habitants = in.nextInt();
 			if (habitants <= 0)
-				System.out.println("Erreur!! valeur incorect!");
+				System.out.println("Erreur!! le nombre d'habitants n'es pas valide!");
 		} while(habitants <=0 );
 
 		do {
-			System.out.println("Donner le type de la ville\n"
+			System.out.println("Donnez le type de la ville\n"
 					+ " 1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.");
 			choix = in.nextInt();
 
@@ -593,7 +589,7 @@ public class VilleV2 {
 		} while (choix < 1 || choix > 4);
 		
 		v = new VilleV2( nom,  wilaya,  superficie,  habitants,  nombreFleurs,  typeV);
-		System.out.println("\n" + "City Created:\n  " + v);
+		System.out.println("\n" + "Ville créee:\n  " + v);
 		
 		return v;
 	}

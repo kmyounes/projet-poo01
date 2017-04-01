@@ -6,10 +6,12 @@ import java.util.Scanner;
 
 
 public class Ville {
+    //liste des villes
+	public static ArrayList<Ville> villes = new ArrayList<Ville>();
   //=====================Types=============================
   public enum types{
 	  agricole, touristique, industrielle, ordinaire
-	  };
+	  }
   
 	
 	//=====================Variables========================
@@ -21,7 +23,6 @@ public class Ville {
 	private types typeV;
 	private String couleur;
 	private static int numero = 0;
-	public static ArrayList<Ville> villes = new ArrayList<Ville>();
 
 	
   //=====================Constructeurs========================
@@ -285,11 +286,9 @@ public class Ville {
 			}	
 		}
 		
-		if(tampon.voisinSort(fin))
-			return true;
-		
-		return false;
-			
+		return (tampon.voisinSort(fin));
+
+
 	}
 	
 	public boolean existeChemin(Ville fin){
