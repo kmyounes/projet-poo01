@@ -17,17 +17,19 @@ public class VilleV2 {
 
 	// Liste contenant toute les villes
 	private static ArrayList<VilleV2> allVilles = new ArrayList<VilleV2>();
-	
 
-	private static int numero = 0; //numéro séquentiel de la ville
+	private static int numero = 0; // numéro séquentiel de la ville
 	private String nom, wilaya, couleur;
 	private double superficie;
 	private int nombreFleurs, habitants;
-	private ArrayList<VilleV2> voisSort;   //voisins sortants
-	private types typeVille; //le type de la ville (agricoles, touristique....)
-	
+	private ArrayList<VilleV2> voisSort; // voisins sortants
+	private types typeVille; // le type de la ville (agricoles, touristique....)
 
 	// =====================Constructeurs========================
+
+	public VilleV2(String nom) {
+		this(nom, "", 0, 0, 0, VilleV2.types.agricole);
+	}
 
 	public VilleV2(String nom, String wilaya, double superficie, int habitants) {
 		this.nom = nom;
@@ -83,7 +85,9 @@ public class VilleV2 {
 
 		numero++;
 	}
-       //Fonction qui initialise la couleur de la ville suivant le nombre de fleurs
+
+	// Fonction qui initialise la couleur de la ville suivant le nombre de
+	// fleurs
 	private void initCouleur() {
 
 		if (this.typeVille == types.valueOf("ordinaire") && (this.nombreFleurs <= 1)) {
@@ -111,8 +115,9 @@ public class VilleV2 {
 	}
 
 	public void setNom(String nom) {
-		if (!nom.isEmpty())		this.nom = nom;
-		else System.out.println("Erreur le nom est vide!");
+		// if (!nom.isEmpty()) this.nom = nom;
+		// else System.out.println("Erreur le nom est vide!");
+		this.nom = nom;
 	}
 
 	public String getWilaya() {
@@ -120,8 +125,10 @@ public class VilleV2 {
 	}
 
 	public void setWilaya(String wilaya) {
-		if(!wilaya.isEmpty())		this.wilaya = wilaya;
-		else System.out.println("Erreur Le champ wilaya est vide");
+		if (!wilaya.isEmpty())
+			this.wilaya = wilaya;
+		else
+			System.out.println("Erreur Le champ wilaya est vide");
 	}
 
 	public double getSuperficie() {
@@ -129,8 +136,10 @@ public class VilleV2 {
 	}
 
 	public void setSuperficie(double superficie) {
-		if(superficie>0) this.superficie = superficie;
-		else System.out.println("Erreur, la superficie ne peut etre négative");
+		if (superficie > 0)
+			this.superficie = superficie;
+		else
+			System.out.println("Erreur, la superficie ne peut etre négative");
 	}
 
 	public int getHabitants() {
@@ -139,8 +148,10 @@ public class VilleV2 {
 
 	public void setHabitants(int habitants) {
 
-		if (habitants>0)this.habitants = habitants;
-		else System.out.println("Erreur, le nombre d'habitant ne peut etre négatif");
+		if (habitants > 0)
+			this.habitants = habitants;
+		else
+			System.out.println("Erreur, le nombre d'habitant ne peut etre négatif");
 	}
 
 	public String getType() {
@@ -158,8 +169,10 @@ public class VilleV2 {
 
 	public void setNombreFleurs(int nombreFleurs) {
 
-		if(nombreFleurs >0 )this.nombreFleurs = nombreFleurs;
-		else System.out.println("Erreur le nombre de fleurs ");
+		if (nombreFleurs > 0)
+			this.nombreFleurs = nombreFleurs;
+		else
+			System.out.println("Erreur le nombre de fleurs ");
 	}
 
 	public String getCouleur() {
@@ -185,7 +198,8 @@ public class VilleV2 {
 	public void setTypeVille(types typeVille) {
 		this.typeVille = typeVille;
 	}
-    //===== méthode Tostring
+
+	// ===== méthode Tostring
 	public String toString() {
 		return "Ville [nom=" + nom + ", wilaya=" + wilaya + ", superficie=" + superficie + ", nombreFleurs="
 				+ nombreFleurs + ", habitants=" + habitants + ", typeVille=" + typeVille + ", couleur=" + couleur + "]";
@@ -193,25 +207,27 @@ public class VilleV2 {
 
 	// =====================Méthodes========================
 
-	public void addVilleSort(VilleV2 v) {  //ajouter un voisin
+	public void addVilleSort(VilleV2 v) { // ajouter un voisin
 		this.voisSort.add(v);
 	}
 
-	public boolean voisinSort(VilleV2 v) {  // fonction qui vérifie si v est une ville voisine
+	public boolean voisinSort(VilleV2 v) { // fonction qui vérifie si v est une
+											// ville voisine
 
 		return this.voisSort.contains(v);
 	}
 
 	// =====================
 
-
-	public void couleurAffiche() {   //permet d'afficher la couleur de la ville courante
+	public void couleurAffiche() { // permet d'afficher la couleur de la ville
+									// courante
 
 		System.out.println("Ville de couleur: " + this.couleur);
 
 	}
 
-	public boolean pasChemin() { // Fonction qui vérifie si la ville courante ne mene a aucune autre ville
+	public boolean pasChemin() { // Fonction qui vérifie si la ville courante ne
+									// mene a aucune autre ville
 
 		for (VilleV2 v : this.voisSort) {
 			if (v != null)
@@ -220,7 +236,8 @@ public class VilleV2 {
 		return true;
 	}
 
-	public boolean existe3Chemin() { // Fonction qui vérifie si la ville actuelle a éxactement 3 voisins
+	public boolean existe3Chemin() { // Fonction qui vérifie si la ville
+										// actuelle a éxactement 3 voisins
 		int cpt = 0;
 
 		for (VilleV2 v : this.voisSort) {
@@ -235,7 +252,8 @@ public class VilleV2 {
 		return cpt == 3;
 	}
 
-	public boolean voisinDifferents() { // Fonction qui vérifie si les voisins directes sont différents entre eux
+	public boolean voisinDifferents() { // Fonction qui vérifie si les voisins
+										// directes sont différents entre eux
 
 		for (int i = 0; i < this.voisSort.size(); i++) {
 			for (int j = 0; j < this.voisSort.size(); i++) {
@@ -247,7 +265,8 @@ public class VilleV2 {
 		return true;
 	}
 
-	public boolean plusFleurie() { // Fonction qui vérifie si la ville actuelle est plus fleurie que les villes voisines
+	public boolean plusFleurie() { // Fonction qui vérifie si la ville actuelle
+									// est plus fleurie que les villes voisines
 
 		for (VilleV2 v : this.voisSort) {
 			if (this.getNombreFleurs() < v.getNombreFleurs())
@@ -259,8 +278,9 @@ public class VilleV2 {
 
 	// *Reworked by Legend: Use method equals with strings!
 	public boolean methodeBizzare() {
-		/*Fonction qui vérifie si la ville actuelle est de type Ordinaire et est de
-		 *couleur verte et toute ses  voisines sont de couleur rouge
+		/*
+		 * Fonction qui vérifie si la ville actuelle est de type Ordinaire et
+		 * est de couleur verte et toute ses voisines sont de couleur rouge
 		 */
 		if (!this.typeVille.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")) {
 
@@ -275,7 +295,12 @@ public class VilleV2 {
 
 	}
 
-	public boolean cheminExiste(VilleV2 fin, VilleV2... chemin) { //Fonction qui vérifie l'existence d'un chemin
+	public boolean cheminExiste(VilleV2 fin, VilleV2... chemin) { // Fonction
+																	// qui
+																	// vérifie
+																	// l'existence
+																	// d'un
+																	// chemin
 		VilleV2 tampon = this;
 
 		for (int i = 0; i < chemin.length; i++) {
@@ -286,12 +311,13 @@ public class VilleV2 {
 			}
 		}
 
-		return  (tampon.voisinSort(fin));
-
+		return (tampon.voisinSort(fin));
 
 	}
 
-	private ArrayList<VilleV2> ToutVoisins() { //Fonction qui retourne toute les villes accessibles depuis la ville courante
+	private ArrayList<VilleV2> ToutVoisins() { // Fonction qui retourne toute
+												// les villes accessibles depuis
+												// la ville courante
 
 		ArrayList<VilleV2> visite = new ArrayList<>();
 		ArrayList<VilleV2> restants = new ArrayList<>();
@@ -314,7 +340,10 @@ public class VilleV2 {
 
 	}
 
-	public boolean exixsteChemin(VilleV2 fin) { // Fonction qui vérifie l'existence d'un chemin vers une ville, depuis la ville courante
+	public boolean exixsteChemin(VilleV2 fin) { // Fonction qui vérifie
+												// l'existence d'un chemin vers
+												// une ville, depuis la ville
+												// courante
 
 		return (this.ToutVoisins().contains(fin));
 	}
@@ -348,11 +377,11 @@ public class VilleV2 {
 		return null;
 	}
 
+	public boolean supprime() { // suppression d'une ville de la liste
+								// principale
 
-	public boolean supprime() { //suppression d'une ville de la liste principale
-
-		if (! VilleV2.villes.contains(this)) {
-		    System.out.println("Ville n'existe pas dans la liste!");
+		if (!VilleV2.villes.contains(this)) {
+			System.out.println("Ville n'existe pas dans la liste!");
 			return false;
 		}
 
@@ -361,10 +390,11 @@ public class VilleV2 {
 		return true;
 	}
 
-	public void modifieVille() { //fonction de modification d'une ville donnée
+	public void modifieVille() { // fonction de modification d'une ville donnée
 		int choice = 1;
-		@SuppressWarnings("resource")
+		// @SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
+		Scanner tmp = new Scanner(System.in);
 
 		do {
 			System.out.printf(
@@ -378,25 +408,28 @@ public class VilleV2 {
 
 		switch (choice) {
 		case 1:
+
 			System.out.println("Entez le nouveau nom:  ");
-			this.setNom(in.next());
+			this.setNom(tmp.nextLine());
+
 			break;
 		case 2:
 			System.out.println("Entrez la nouvelle wilaya:  ");
-			this.setWilaya(in.next());
+			this.setWilaya(tmp.nextLine());
+
 			break;
 		case 3:
 			double sup = 0;
-			
-			do{
+
+			do {
 				System.out.println("Entrez la nouvelle superficie:  ");
-				sup = in.nextInt();
-				
-				if(sup<=0){
+				sup = tmp.nextInt();
+
+				if (sup <= 0) {
 					System.out.println("Erreur!! Nombre negatif ou 0 interdit!");
 				}
-			}while(sup <= 0);
-			
+			} while (sup <= 0);
+
 			this.setSuperficie(sup);
 			break;
 		case 4:
@@ -425,47 +458,54 @@ public class VilleV2 {
 			}
 			break;
 		case 5:
-			//Fleurs
+			// Fleurs
 			int nbrFlrs = 0;
-			do{
+			do {
 				System.out.println("Donner le nouveau nombre de fleurs");
 				nbrFlrs = in.nextInt();
-				
-				if(nbrFlrs<0){
+
+				if (nbrFlrs < 0) {
 					System.out.println("Erreur!! Nombre negatif interdit!");
 				}
-			}while(nbrFlrs<0);
-			
+			} while (nbrFlrs < 0);
+
 			this.setNombreFleurs(nbrFlrs);
-			
+
 			break;
 		case 6:
-			//Habitants
+			// Habitants
 			int nbrHabit = 0;
-			do{
+			do {
 				System.out.println("Donner le nouveau nombre d' habitants");
 				nbrHabit = in.nextInt();
-				
-				if(nbrHabit<=0){
+
+				if (nbrHabit <= 0) {
 					System.out.println("Erreur!! Nombre negatif ou 0 interdit!");
 				}
-			}while(nbrHabit<=0);
-			
+			} while (nbrHabit <= 0);
+
 			this.setHabitants(nbrHabit);
 			break;
 		}
 		System.out.println("Done!");
-		
+
 	}
 
-	private void afficheReseauVille() { //fonction pour afficher le réseau de villes
+	private void afficheReseauVille() { // fonction pour afficher le réseau de
+										// villes
+		// Niveau de la ville (nbr d'espaces a afficher avant la ville)
 		int lvl = 0;
+		// Array des villes deja afficher
 		ArrayList<VilleV2> liste = new ArrayList<VilleV2>();
+		// Array des villes a afficher
 		ArrayList<VilleV2> tampon = new ArrayList<VilleV2>();
 		VilleV2 tmp = this;
+		// Initialisation du tab des villes a affficher
 		tampon.add(this);
 
+		// Tantque il y a des villes a afficher
 		while (!tampon.isEmpty()) {
+			// traiter la 1ere ville
 			tmp = tampon.get(0);
 			tampon.remove(0);
 
@@ -476,35 +516,54 @@ public class VilleV2 {
 				String result = new String(chars);
 				System.out.print(result);
 
+				// Si la ville deja afficher
 				if (liste.contains(tmp)) {
 					System.out.print(" => " + tmp.getNom() + " # ");
 					System.out.println();
 
 					continue;
 				} else {
+					// afficher la ville, ajouter la ville afficher au tableau
 					System.out.println(" => " + tmp.getNom());
 					liste.add(tmp);
 				}
 
+				// Si la ville crnt possede des voisin
 				if (!tmp.getVoisSort().isEmpty()) {
+					// Ajouter les voisins de la ville crnt au tab des villes a
+					// afficher
 					tampon.addAll(0, tmp.getVoisSort());
+					// ajouter null pour retourner l'affichage d'un niveau
 					tampon.add(tmp.getVoisSort().size(), null);
 					lvl++;
 				}
 			} else {
-
+				// Decrementer le niveau
 				lvl = lvl > 0 ? lvl - 1 : 0;
 			}
 		}
 	}
-	
-	public static void afficheReseau(){ //fonction d'affichage de reseau de villes
-		for(VilleV2 v : VilleV2.villes){
-			v.afficheReseauVille();
+
+	public static void afficheReseau() { // fonction d'affichage de reseau de
+											// villes
+		// Parcourer le tab des villes initiale & appelle au fonction
+		// d'affichage pour chaque ville
+
+		// Tab des villes deja afficher
+		ArrayList<VilleV2> liste = new ArrayList<VilleV2>();
+		for (VilleV2 v : VilleV2.villes) {
+			if (liste.contains(v)) {
+				System.out.println(" => " + v.getNom() + " # ");
+			} else {
+				v.afficheReseauVille();
+			}
 		}
+		System.out.println();
+		System.out.println(" #: Ville déja afficher");
 	}
 
-	public static void afficherListeVilles() {  //Fonction qui affiche les villes suivant leurs couleurs
+	public static void afficherListeVilles() { // Fonction qui affiche les
+												// villes suivant leurs couleurs
 		String vert = "", rouge = "", orange = "";
 
 		for (VilleV2 v : VilleV2.allVilles) {
@@ -523,7 +582,12 @@ public class VilleV2 {
 
 	}
 
-	public static ArrayList<ArrayList<VilleV2>> Partitions() { // Fonction qui partitionne les villes en villes fotement liées
+	public static ArrayList<ArrayList<VilleV2>> Partitions() { // Fonction qui
+																// partitionne
+																// les villes en
+																// villes
+																// fotement
+																// liées
 		ArrayList<ArrayList<VilleV2>> partitions = new ArrayList<>();
 		ArrayList<VilleV2> tmp;
 		ArrayList<VilleV2> tampon;
@@ -544,19 +608,26 @@ public class VilleV2 {
 		return partitions;
 	}
 
-	private static boolean existe(ArrayList<ArrayList<VilleV2>> a, VilleV2 b) { //Fonction qui vérifie l'existence d'une ville dans un ArrayList<ArrayList<Ville>>
+	private static boolean existe(ArrayList<ArrayList<VilleV2>> a, VilleV2 b) { // Fonction
+																				// qui
+																				// vérifie
+																				// l'existence
+																				// d'une
+																				// ville
+																				// dans
+																				// un
+																				// ArrayList<ArrayList<Ville>>
 		for (ArrayList<VilleV2> c : a) {
 			if (c.contains(b))
 				return true;
 		}
 		return false;
 	}
-	
-	//==================================================
-	
 
-    //Ajout d'une ville
-	public static VilleV2 ajouterVilleV2(){
+	// ==================================================
+
+	// Ajout d'une ville
+	public static VilleV2 ajouterVilleV2() {
 		VilleV2 v;
 		String nom = "", wilaya = "";
 		double superficie = 0;
@@ -564,42 +635,38 @@ public class VilleV2 {
 		types typeV = types.agricole;
 		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
-        int choix = 1;
-		
-		
-			System.out.println("Entrez le nom de la ville");
-			nom = in.next();
-		
-		
-		
-			System.out.println("Entrez la wilaya de la ville");
-			wilaya = in.next();
-		
-		
+		int choix = 1;
+
+		System.out.println("Entrez le nom de la ville");
+		nom = in.nextLine();
+
+		System.out.println("Entrez la wilaya de la ville");
+		wilaya = in.nextLine();
+
 		do {
 			System.out.println("Entrez la superficie de la ville");
 			superficie = in.nextDouble();
 			if (superficie <= 0)
 				System.out.println("Erreur!! la de la supèrficie est  incorecte!");
-		} while(superficie <= 0 );
-		
+		} while (superficie <= 0);
+
 		do {
 			System.out.println("Donnez le nombre de fleur(s) de la ville");
 			nombreFleurs = in.nextInt();
 			if (nombreFleurs <= 0)
 				System.out.println("Erreur!! Le nombre de fleur est  incorect!");
-		} while(nombreFleurs <=0 );
-		
+		} while (nombreFleurs <= 0);
+
 		do {
 			System.out.println("Donnez le nombre habitants de la ville");
 			habitants = in.nextInt();
 			if (habitants <= 0)
 				System.out.println("Erreur!! le nombre d'habitants n'es pas valide!");
-		} while(habitants <=0 );
+		} while (habitants <= 0);
 
 		do {
-			System.out.println("Donnez le type de la ville\n"
-					+ " 1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.");
+			System.out.println(
+					"Donnez le type de la ville\n" + " 1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.");
 			choix = in.nextInt();
 
 			switch (choix) {
@@ -620,63 +687,60 @@ public class VilleV2 {
 			if (choix < 1 || choix > 4)
 				System.out.println("Erreur!! choix incorect!");
 		} while (choix < 1 || choix > 4);
-		
-		v = new VilleV2( nom,  wilaya,  superficie,  habitants,  nombreFleurs,  typeV);
-		
-		//System.out.println("\n" + "Ville créee:\n  " + v);
-		
 
+		v = new VilleV2(nom, wilaya, superficie, habitants, nombreFleurs, typeV);
 
-		if(VilleV2.villes.isEmpty()){ //If there are no cities we automatically add to the main list
+		// System.out.println("\n" + "Ville créee:\n " + v);
+
+		if (VilleV2.villes.isEmpty()) { // If there are no cities we
+										// automatically add to the main list
 			System.out.println("La ville a été ajoutée comme ville principale.");
-    		VilleV2.villes.add(v);
+			VilleV2.villes.add(v);
 			return v;
 		}
-		
-		//if the list isn't empty we ask where to put the newly created city
-		do{
+
+		// if the list isn't empty we ask where to put the newly created city
+		do {
 			System.out.println("Dans quelle Liste voulez-vous ajouter cette ville:\n"
-					+ "1) Liste des villes principales.\n"
-					+ "2) Comme voisine d'une autre ville.");
+					+ "1) Liste des villes principales.\n" + "2) Comme voisine d'une autre ville.");
 			choix = in.nextInt();
-			
-			if(choix<1 || choix>2)
+
+			if (choix < 1 || choix > 2)
 				System.out.println("Erreur!! choix incorect!");
-		}while(choix<1 || choix>2);
-		
-		switch(choix){
+		} while (choix < 1 || choix > 2);
+
+		switch (choix) {
 		case 1:
 			VilleV2.villes.add(v);
 			break;
-        case 2:
+		case 2:
+			Scanner tmpS = new Scanner(System.in);
 			VilleV2 tmp = null;
-        	int stop = 4;
-			
-			
-			do{
+			int stop = 4;
+
+			do {
 				System.out.println("Entrez le nom de la ville précédente : ");
-				nom = in.next();
-				
+				nom = tmpS.nextLine();
+
 				tmp = VilleV2.rechListe(nom);
-				
-				if(tmp == null){
+
+				if (tmp == null) {
 					System.out.println("\n\n\t La ville sous le nom de : \"" + nom + "\" n'existe pas!!\n"
 							+ "Ressayer? :  0) Non. Autre) Oui.");
 					stop = in.nextInt();
 				}
-			}while(stop != 0 && tmp == null);
-        	
-        	if( tmp == null ){
-        		System.out.println("La ville a été automatiquement ajouté a la liste principale.");
-        		VilleV2.villes.add(v);
-        	} else {
-        		tmp.addVilleSort(v);
-        	}
-			
+			} while (stop != 0 && tmp == null);
+
+			if (tmp == null) {
+				System.out.println("La ville a été automatiquement ajouté a la liste principale.");
+				VilleV2.villes.add(v);
+			} else {
+				tmp.addVilleSort(v);
+			}
+
 			break;
 		}
-		
-		
+
 		return v;
 	}
 
