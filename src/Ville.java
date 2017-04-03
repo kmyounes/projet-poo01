@@ -172,7 +172,7 @@ public class Ville {
 		
 	//=====================Méthodes========================
 
-	public void addVilleSort(Ville v) {
+	public void addVilleSort(Ville v) { //Fonction qui permet d'ajouter une ville comme voisine
 		this.voisSort.add(v);
 	}
 
@@ -190,7 +190,7 @@ public class Ville {
 	}
 	
 	
-	public boolean pasChemin(){
+	public boolean pasChemin(){ //Foction qui Permet de verifier si la ville actuelle ne mène a aucune autre ville
 		
 		for(Ville v : this.voisSort){
 			if(v != null)
@@ -199,7 +199,7 @@ public class Ville {
 		return true;
 	}
 	
-	public boolean existe3Chemin(){
+	public boolean existe3Chemin(){// Fonction qui permet de verifier l'existence de 3 Villes voisines exactement
 		int cpt = 0;
 		
 		for(Ville v : this.voisSort){
@@ -214,8 +214,7 @@ public class Ville {
 		return cpt == 3;
 	}
 	
-	// *Reworked by Legend: Added villes between them
-	public boolean voisinDifferents(){
+	public boolean voisinDifferents(){ //Fonction qui permet de verifier si toutes le villes voisines sont differentes entre elles
         
 		for(int i = 0; i < this.voisSort.size(); i++){
 			for(int j = 0; j < this.voisSort.size(); i++){
@@ -231,8 +230,7 @@ public class Ville {
 	}
 	
 	
-	// *Reworked by Legend: Added villes sortant
-	public boolean plusFleurie(){
+	public boolean plusFleurie(){//Fonction qui permet de verifier que la ville actuelle est plus fleurie que ses voisines
 		
 		for(Ville v: this.voisSort){
 			if(this.getNombreFleurs() < v.getNombreFleurs())
@@ -242,8 +240,7 @@ public class Ville {
 		return true;		
 	}
 	
-	// *Reworked by Legend: Use method equals with strings!
-	public boolean methodeBizzare(){
+	public boolean methodeBizzare(){ //Fonction qui vérifie que la ville est de type "ordinaire" et "verte" et toutes ses voisines sont rouges
 		//if (this.typeV !=types.valueOf("ordinaire") && this.couleur.equalsIgnoreCase("Vert")){
 		if (!this.typeV.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")){
 			
@@ -267,7 +264,7 @@ public class Ville {
 
 	
 	
-	public boolean cheminExiste(Ville fin, Ville... chemin){
+	public boolean cheminExiste(Ville fin, Ville... chemin){ //Fonction qui permet de verifier l'existence d'un chemin donné vers une ville donnée
 		Ville tampon = this;
 		
 		for(int i = 0; i < chemin.length; i++){
@@ -283,7 +280,7 @@ public class Ville {
 
 	}
 	
-	public boolean existeChemin(Ville fin){
+	public boolean existeChemin(Ville fin){//Fonciton qui permet de verifier l'existence  d'un chemin vers une ville donnée
 		
 		if(this.equals(fin))
 			return true;
@@ -297,7 +294,7 @@ public class Ville {
 	}
 	
 	
-	public Ville recherche(String nom){
+	public Ville recherche(String nom){ // Fonction qui permet de rechercher une ville avec son nom 
 		
 		if(this.getNom().equals(nom))
 			return this;
@@ -329,7 +326,7 @@ public static Ville rechListe( String nom){
 	}
 
 	
-	public boolean supprime(){
+	public boolean supprime(){ //Fonction qui permet de supprimer La ville actuelle
 		if(Ville.villes.indexOf(this) == -1){
 			System.out.println("Ville n'existe pas dans la liste!");
 			return false;
@@ -340,39 +337,39 @@ public static Ville rechListe( String nom){
 		return true;
 	}
 	
-	public void modifieVille(){
+	public void modifieVille(){ //Fonction qui permet de modifier les informations d'une ville
 		int choice = 1;
 		Scanner in = new Scanner(System.in);
 	
 		do{
-			System.out.printf("What do you want to change?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Abort.%n Votre choix: ");
+			System.out.printf("Que voulez-vous changer?: %n 1) Nom 2) Wilaya 3) Superficie 4) Type de ville 0) Annuler.%n Votre choix: ");
 			choice = in.nextInt();
 		
 			if(choice < 0 || choice > 4)
-				System.out.println("Erreur!! Please enter a valide choice!");
+				System.out.println("Erreur!! Veuillez entrer un choix valide!");
 		
 		}while(choice < 0 || choice > 4);
 		
 		switch(choice){
 		case 1: 
-			System.out.println("Enter the new name:  ");
+			System.out.println("Entrez le nouveau nom:  ");
 			this.setNom(in.next());
 			break;
 		case 2: 
-			System.out.println("Enter the new wilaya:  ");
+			System.out.println("Entez la nouvelle wilaya:  ");
 			this.setWilaya(in.next());
 			break;
 		case 3: 
-			System.out.println("Enter the new :  ");
+			System.out.println("Entrez la nouvelle superficie:  ");
 			this.setSuperficie(in.nextDouble());
 			break;
 		case 4: 
 			int type = 1;
 			do{
-				System.out.printf("Enter the new type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.%n Votre choix: ");
+				System.out.printf("Entrez le nouveau type:  1) Agricole, 2) Touristique, 3) Industrielle, 4) Ordinaire.%n Votre choix: ");
 				type = in.nextInt();
 				if(type < 1 || type >4)
-					System.out.println("Error!! Enter a valid type!");
+					System.out.println("Error!! Veuillez entrer un type valide!");
 			}while(type < 1 || type >4);
 		
 			switch(type){
@@ -392,11 +389,11 @@ public static Ville rechListe( String nom){
 			break;
 		}
 	
-		System.out.println("Done!");
+		System.out.println("Fait!");
 		in.close();
 	}
 	
-public static void afficheReseauArray(){
+public static void afficheReseauArray(){ //fonction qui permet d'afficher le
 		
 		for(Ville v: Ville.villes){
 			v.afficheReseauVille( 0, 0);
