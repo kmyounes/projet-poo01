@@ -243,8 +243,6 @@ public class Ville {
 	public boolean methodeBizzare() { // Fonction qui vérifie que la ville est
 										// de type "ordinaire" et "verte" et
 										// toutes ses voisines sont rouges
-		// if (this.typeV !=types.valueOf("ordinaire") &&
-		// this.couleur.equalsIgnoreCase("Vert")){
 		if (!this.typeV.equals(types.valueOf("ordinaire")) && this.couleur.equalsIgnoreCase("Vert")) {
 
 			for (Ville v : this.voisSort) {
@@ -400,7 +398,6 @@ public class Ville {
 
 	// Methode public d'affichage
 	public static void afficheReseauArray() { // fonction qui permet d'afficher
-												// le
 		// cette fonction est pour initialiser les params de la fonction private
 		for (Ville v : Ville.villes) {
 			v.afficheReseauVille(0, 0);
@@ -414,7 +411,7 @@ public class Ville {
 	public void afficheReseauVille(int numSpace, int i) {
 
 		// numSpace = num d'espaces a afficher avant le nom de la ville
-		// i = niveau de la ville crnt
+		// i = niveau de la ville courante 
 
 		System.out.print(this.getNom());
 

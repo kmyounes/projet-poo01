@@ -115,8 +115,6 @@ public class VilleV2 {
 	}
 
 	public void setNom(String nom) {
-		// if (!nom.isEmpty()) this.nom = nom;
-		// else System.out.println("Erreur le nom est vide!");
 		this.nom = nom;
 	}
 
@@ -276,7 +274,6 @@ public class VilleV2 {
 		return true;
 	}
 
-	// *Reworked by Legend: Use method equals with strings!
 	public boolean methodeBizzare() {
 		/*
 		 * Fonction qui vérifie si la ville actuelle est de type Ordinaire et
@@ -690,7 +687,6 @@ public class VilleV2 {
 
 		v = new VilleV2(nom, wilaya, superficie, habitants, nombreFleurs, typeV);
 
-		// System.out.println("\n" + "Ville créee:\n " + v);
 
 		if (VilleV2.villes.isEmpty()) { // If there are no cities we
 										// automatically add to the main list
@@ -699,7 +695,7 @@ public class VilleV2 {
 			return v;
 		}
 
-		// if the list isn't empty we ask where to put the newly created city
+        // Si la liste n'est pas vie, on demande ou placer la ville créee
 		do {
 			System.out.println("Dans quelle Liste voulez-vous ajouter cette ville:\n"
 					+ "1) Liste des villes principales.\n" + "2) Comme voisine d'une autre ville.");
